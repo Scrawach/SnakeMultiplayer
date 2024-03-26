@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.gustavopsantos.reflex": {
+      "version": "https://github.com/gustavopsantos/reflex.git?path=/Assets/Reflex/#8.0.0",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "f4ff08439439cd4de03cbf632c98342ce9903b1e"
+    },
     "com.unity.collab-proxy": {
       "version": "2.3.1",
       "depth": 0,
