@@ -2,7 +2,7 @@ using Reflex.Core;
 using Services;
 using UnityEngine;
 
-namespace Insfrastructure
+namespace Infrastructure
 {
     public class GameInstaller : MonoBehaviour, IInstaller
     {
