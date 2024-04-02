@@ -63,7 +63,8 @@ namespace Network.Services.Factory
 
         private Snake CreateRemoteSnake(string key, string pathToPrefab, Player player, float movementSpeed)
         {
-            var snake = CreateSnake(pathToPrefab, player.position.ToVector3(), player.size);
+            var skin = _staticData.ForSnakeSkin(player.skinId);
+            var snake = CreateSnake(pathToPrefab, player.position.ToVector3(), player.size, skin);
             var remoteSnake = snake.GetComponent<RemoteSnake>();
             var positionDispose = player.OnPositionChange(remoteSnake.ChangePosition);
             _remoteSnakes.Add(key, snake, positionDispose);
@@ -71,14 +72,16 @@ namespace Network.Services.Factory
             return snake;
         }
 
-        private Snake CreateSnake(string path, Vector3 position, int countOfDetails)
+        private Snake CreateSnake(string path, Vector3 position, int countOfDetails, Material skin)
         {
             var instance = _assets.Instantiate<Snake>(path, position, Quaternion.identity, null);
-
+            instance.GetComponentInChildren<SnakeSkin>().ChangeTo(skin);
+            
             for (var i = 0; i < countOfDetails; i++)
             {
-                var detail = _assets.Instantiate<GameObject>(DetailPath, Vector3.zero, Quaternion.identity, instance.transform);
-                instance.AddDetail(detail);
+                var snakeSkin = _assets.Instantiate<SnakeSkin>(DetailPath, Vector3.zero, Quaternion.identity, instance.transform);
+                snakeSkin.ChangeTo(skin);
+                instance.AddDetail(snakeSkin.gameObject);
             }
             
             return instance;

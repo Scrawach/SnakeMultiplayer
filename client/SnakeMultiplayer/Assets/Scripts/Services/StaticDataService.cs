@@ -1,6 +1,7 @@
 ﻿using Colyseus;
 using Infrastructure;
 using StaticData;
+using UnityEngine;
 
 namespace Services
 {
@@ -27,6 +28,13 @@ namespace Services
 
         public SnakeData ForSnake() =>
             _snakeStaticData.Data;
+
+        public Material ForSnakeSkin(int index)
+        {
+            var materials = _snakeStaticData.Skins;
+            var clampedIndex = index % materials.Materials.Length;
+            return materials.Materials[clampedIndex];
+        }
 
     }
 }
