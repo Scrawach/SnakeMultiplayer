@@ -1,7 +1,8 @@
 ﻿using System;
 using Colyseus;
+using Network.Schemas;
 
-namespace Network.Services
+namespace Network.Services.RoomHandlers
 {
     public interface INetworkRoomHandler : IDisposable
     {

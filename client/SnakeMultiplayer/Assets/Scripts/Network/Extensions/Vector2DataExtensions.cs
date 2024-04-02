@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Network.Schemas;
+using UnityEngine;
 
 namespace Network.Extensions
 {

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using Colyseus;
 using Cysharp.Threading.Tasks;
+using Network.Schemas;
+using Network.Services.RoomHandlers;
 using Services;
 using UnityEngine;
 

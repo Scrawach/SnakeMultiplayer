@@ -1,5 +1,6 @@
 ﻿using Gameplay.SnakeLogic;
 using Network.Extensions;
+using Network.Schemas;
 using UnityEngine;
 
 namespace Gameplay

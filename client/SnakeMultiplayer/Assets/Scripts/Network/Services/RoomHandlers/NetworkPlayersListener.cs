@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Extensions;
+using Network.Schemas;
+using Network.Services.Factory;
 
-namespace Network.Services
+namespace Network.Services.RoomHandlers
 {
     public class NetworkPlayersListener : IDisposable
     {

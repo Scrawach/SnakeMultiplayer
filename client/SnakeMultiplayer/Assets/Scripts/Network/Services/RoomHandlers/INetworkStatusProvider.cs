@@ -1,4 +1,4 @@
-﻿namespace Network.Services
+﻿namespace Network.Services.RoomHandlers
 {
     public interface INetworkStatusProvider
     {

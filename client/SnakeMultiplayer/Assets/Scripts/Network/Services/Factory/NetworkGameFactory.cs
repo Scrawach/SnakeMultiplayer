@@ -2,10 +2,13 @@
 using Gameplay.SnakeLogic;
 using Infrastructure;
 using Network.Extensions;
+using Network.Schemas;
+using Network.Services.RoomHandlers;
+using Network.Services.Snakes;
 using Services;
 using UnityEngine;
 
-namespace Network.Services
+namespace Network.Services.Factory
 {
     public class NetworkGameFactory
     {

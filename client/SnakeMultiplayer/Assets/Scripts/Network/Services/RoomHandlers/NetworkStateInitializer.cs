@@ -1,6 +1,7 @@
 ﻿using Colyseus;
+using Network.Schemas;
 
-namespace Network.Services
+namespace Network.Services.RoomHandlers
 {
     public class NetworkStateInitializer : INetworkRoomHandler
     {

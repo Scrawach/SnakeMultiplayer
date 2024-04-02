@@ -8,30 +8,33 @@
 using Colyseus.Schema;
 using Action = System.Action;
 
-public partial class GameRoomState : Schema {
-	[Type(0, "map", typeof(MapSchema<Player>))]
-	public MapSchema<Player> players = new MapSchema<Player>();
+namespace Network.Schemas
+{
+	public partial class GameRoomState : Schema {
+		[Type(0, "map", typeof(MapSchema<Player>))]
+		public MapSchema<Player> players = new MapSchema<Player>();
 
-	/*
+		/*
 	 * Support for individual property change callbacks below...
 	 */
 
-	protected event PropertyChangeHandler<MapSchema<Player>> __playersChange;
-	public Action OnPlayersChange(PropertyChangeHandler<MapSchema<Player>> __handler, bool __immediate = true) {
-		if (__callbacks == null) { __callbacks = new SchemaCallbacks(); }
-		__callbacks.AddPropertyCallback(nameof(this.players));
-		__playersChange += __handler;
-		if (__immediate && this.players != null) { __handler(this.players, null); }
-		return () => {
-			__callbacks.RemovePropertyCallback(nameof(players));
-			__playersChange -= __handler;
-		};
-	}
+		protected event PropertyChangeHandler<MapSchema<Player>> __playersChange;
+		public Action OnPlayersChange(PropertyChangeHandler<MapSchema<Player>> __handler, bool __immediate = true) {
+			if (__callbacks == null) { __callbacks = new SchemaCallbacks(); }
+			__callbacks.AddPropertyCallback(nameof(this.players));
+			__playersChange += __handler;
+			if (__immediate && this.players != null) { __handler(this.players, null); }
+			return () => {
+				__callbacks.RemovePropertyCallback(nameof(players));
+				__playersChange -= __handler;
+			};
+		}
 
-	protected override void TriggerFieldChange(DataChange change) {
-		switch (change.Field) {
-			case nameof(players): __playersChange?.Invoke((MapSchema<Player>) change.Value, (MapSchema<Player>) change.PreviousValue); break;
-			default: break;
+		protected override void TriggerFieldChange(DataChange change) {
+			switch (change.Field) {
+				case nameof(players): __playersChange?.Invoke((MapSchema<Player>) change.Value, (MapSchema<Player>) change.PreviousValue); break;
+				default: break;
+			}
 		}
 	}
 }

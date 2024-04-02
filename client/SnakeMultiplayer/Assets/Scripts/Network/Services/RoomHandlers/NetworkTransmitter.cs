@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using Colyseus;
 using Network.Extensions;
+using Network.Schemas;
 using UnityEngine;
 
-namespace Network.Services
+namespace Network.Services.RoomHandlers
 {
     public class NetworkTransmitter : INetworkRoomHandler
     {

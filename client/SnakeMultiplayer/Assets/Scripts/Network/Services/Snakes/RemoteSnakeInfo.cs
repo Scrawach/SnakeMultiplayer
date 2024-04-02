@@ -1,7 +1,7 @@
 ﻿using System;
 using Gameplay.SnakeLogic;
 
-namespace Network.Services
+namespace Network.Services.Snakes
 {
     public class RemoteSnakeInfo
     {
