@@ -1,32 +1,39 @@
 ﻿using UnityEngine;
 
-namespace Gameplay.SnakeLogic
+namespace Gameplay
 {
-    public class SnakeHead : MonoBehaviour
+    public class PlayerAim : MonoBehaviour
     {
         [SerializeField] private float _speed = 2f;
+        [SerializeField] private float _rotationSpeed = 180f;
         
         private Quaternion _targetRotation;
 
-        public void LookAt(Vector3 target)
+        public void SmoothLookAt(Vector3 target)
         {
             var direction = target - transform.position;
             _targetRotation = Quaternion.LookRotation(direction, Vector3.up);
-            transform.rotation = _targetRotation;
         }
-
+        
         public void ResetRotation() => 
             _targetRotation = transform.rotation;
 
         private void Update()
         {
             MoveHead();
+            RotateHead();
         }
 
         private void MoveHead()
         {
             var timeStep = Time.deltaTime * _speed;
             transform.Translate(transform.forward * timeStep, Space.World);
+        }
+
+        private void RotateHead()
+        {
+            var timeStep = Time.deltaTime * _rotationSpeed;
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, _targetRotation, timeStep);
         }
     }
 }

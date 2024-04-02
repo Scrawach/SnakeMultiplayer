@@ -1,6 +1,4 @@
-﻿using System;
-using Gameplay.SnakeLogic;
-using Reflex.Attributes;
+﻿using Reflex.Attributes;
 using Services;
 using UnityEngine;
 
@@ -8,7 +6,7 @@ namespace Gameplay
 {
     public class PlayerSnake : MonoBehaviour
     {
-        [SerializeField] private Snake _snake;
+        [SerializeField] private PlayerAim _playerAim;
         
         private InputService _input;
         
@@ -23,11 +21,11 @@ namespace Gameplay
             if (_input.IsMoveButtonPressed())
             {
                 TargetPoint = _input.WorldMousePosition();
-                _snake.SmoothLookAt(TargetPoint);
+                _playerAim.SmoothLookAt(TargetPoint);
             }
             else
             {
-                _snake.ResetRotation();
+                _playerAim.ResetRotation();
             }
         }
     }

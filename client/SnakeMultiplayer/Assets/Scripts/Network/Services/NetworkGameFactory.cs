@@ -16,12 +16,15 @@ namespace Network.Services
         private readonly INetworkStatusProvider _networkStatus;
         private readonly Assets _assets;
         private readonly CameraProvider _camera;
+        private readonly RemoteSnakesProvider _remoteSnakes;
 
-        public NetworkGameFactory(INetworkStatusProvider networkStatus, Assets assets, CameraProvider camera)
+        public NetworkGameFactory(INetworkStatusProvider networkStatus, Assets assets, CameraProvider camera,
+            RemoteSnakesProvider remoteSnakes)
         {
             _networkStatus = networkStatus;
             _assets = assets;
             _camera = camera;
+            _remoteSnakes = remoteSnakes;
         }
 
         public Snake CreateSnake(string key, Player player) => 
@@ -31,26 +34,33 @@ namespace Network.Services
 
         public void RemoveSnake(string key)
         {
-            
+            var info = _remoteSnakes[key];
+            _remoteSnakes.Remove(key);
+            foreach (var dispose in info.Disposes) 
+                dispose?.Invoke();
+            Object.Destroy(info.Snake.gameObject);
         }
 
         private Snake CreatePlayer(string key, Player player)
         {
-            var snake = CreateSnake(PlayerSnakePath, player.position.ToVector3(), player.size);
+            var snake = CreateRemoteSnake(key, PlayerSnakePath, player);
             _camera.Follow(snake.Head.transform);
             return snake;
         }
 
-        private Snake CreateRemotePlayer(string key, Player player)
+        private Snake CreateRemotePlayer(string key, Player player) => 
+            CreateRemoteSnake(key, RemotePlayerSnakePath, player);
+
+        private Snake CreateRemoteSnake(string key, string pathToPrefab, Player player)
         {
-            var snake = CreateSnake(RemotePlayerSnakePath, player.position.ToVector3(), player.size);
+            var snake = CreateSnake(pathToPrefab, player.position.ToVector3(), player.size);
             var remoteSnake = snake.GetComponent<RemoteSnake>();
             var positionDispose = player.OnPositionChange(remoteSnake.ChangePosition);
-            //player.OnSizeChange(remoteSnake.ChangeSize);
+            _remoteSnakes.Add(key, snake, positionDispose);
             return snake;
         }
-        
-        public Snake CreateSnake(string path, Vector3 position, int countOfDetails)
+
+        private Snake CreateSnake(string path, Vector3 position, int countOfDetails)
         {
             var instance = _assets.Instantiate<Snake>(path, position, Quaternion.identity, null);
 

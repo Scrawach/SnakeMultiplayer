@@ -1,5 +1,4 @@
-﻿using Gameplay.SnakeLogic;
-using Network.Services;
+﻿using Network.Services;
 using Reflex.Attributes;
 using UnityEngine;
 
@@ -7,7 +6,7 @@ namespace Gameplay
 {
     public class PlayerNetworkSync : MonoBehaviour
     {
-        [SerializeField] private Snake _snake;
+        [SerializeField] private PlayerAim _playerAim;
         private NetworkTransmitter _transmitter;
         
         [Inject]
@@ -15,6 +14,6 @@ namespace Gameplay
             _transmitter = transmitter;
 
         private void Update() => 
-            _transmitter.SendPosition(_snake.Head.transform.position);
+            _transmitter.SendPosition(_playerAim.transform.position);
     }
 }
