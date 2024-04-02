@@ -1,12 +1,17 @@
 import { Room, Client } from "@colyseus/core";
 import { GameRoomState } from "./schema/GameRoomState";
 import { Vector2Data } from "./schema/Vector2Data";
+import { StaticData } from "../services/staticData";
 
 export class GameRoom extends Room<GameRoomState> {
 
   onCreate (options: any) {
     console.log("Game Room created!")
-    this.setState(new GameRoomState());
+    const staticData = new StaticData();
+    staticData.initialize();
+
+    this.setState(new GameRoomState(staticData));
+    
     this.onMessage("move", (client, data) => {
       const position = new Vector2Data();
       position.x = data.position.x;

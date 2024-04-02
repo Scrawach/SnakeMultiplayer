@@ -17,4 +17,12 @@ MonoBehaviour:
     RotationSpeed: 90
   Skins:
     Materials:
-    - {fileID: 2100000, guid: de05301aa5b0c214b931b42cec467e7c, type: 2}
+    - {fileID: 2100000, guid: 246d0247b3bce65499e4399e67674346, type: 2}
+    - {fileID: 2100000, guid: 2fde1880cebb66d4a8dc39c9a536ce9b, type: 2}
+    - {fileID: 2100000, guid: 7440f5e3d31d96e46994e8419c80f25b, type: 2}
+    - {fileID: 2100000, guid: 999e4b6e5b3315f44aa148d423a83001, type: 2}
+    - {fileID: 2100000, guid: 15a02da4846686e4a828f9e26668236e, type: 2}
+    - {fileID: 2100000, guid: d8f78f137a77b844a868804c08f0b99b, type: 2}
+    - {fileID: 2100000, guid: a4ace634a3cde8940bce6b74463f382c, type: 2}
+    - {fileID: 2100000, guid: 0af24fda8096bd94f87a73988af215b4, type: 2}
+    - {fileID: 2100000, guid: d964148043be23d468e258db7134114c, type: 2}

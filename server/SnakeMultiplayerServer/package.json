@@ -13,7 +13,7 @@
     "build": "npm run clean && tsc",
     "clean": "rimraf build",
     "test": "mocha -r tsx test/**_test.ts --exit --timeout 15000",
-    "export": "schema-codegen src/rooms/schema/* --csharp --output ../../client//SnakeMultiplayer/Assets/Scripts/Network/Schemas"
+    "export": "schema-codegen src/rooms/schema/* --csharp --output ../../client//SnakeMultiplayer/Assets/Scripts/Network/Schemas --namespace Network.Schemas"
   },
   "author": "",
   "license": "UNLICENSED",

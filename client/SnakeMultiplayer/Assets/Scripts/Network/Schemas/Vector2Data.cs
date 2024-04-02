@@ -8,8 +8,7 @@
 using Colyseus.Schema;
 using Action = System.Action;
 
-namespace Network.Schemas
-{
+namespace Network.Schemas {
 	public partial class Vector2Data : Schema {
 		[Type(0, "number")]
 		public float x = default(float);
@@ -18,8 +17,8 @@ namespace Network.Schemas
 		public float y = default(float);
 
 		/*
-	 * Support for individual property change callbacks below...
-	 */
+		 * Support for individual property change callbacks below...
+		 */
 
 		protected event PropertyChangeHandler<float> __xChange;
 		public Action OnXChange(PropertyChangeHandler<float> __handler, bool __immediate = true) {
@@ -54,4 +53,3 @@ namespace Network.Schemas
 		}
 	}
 }
-

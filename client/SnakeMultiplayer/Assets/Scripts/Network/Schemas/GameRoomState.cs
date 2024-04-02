@@ -8,15 +8,14 @@
 using Colyseus.Schema;
 using Action = System.Action;
 
-namespace Network.Schemas
-{
+namespace Network.Schemas {
 	public partial class GameRoomState : Schema {
 		[Type(0, "map", typeof(MapSchema<Player>))]
 		public MapSchema<Player> players = new MapSchema<Player>();
 
 		/*
-	 * Support for individual property change callbacks below...
-	 */
+		 * Support for individual property change callbacks below...
+		 */
 
 		protected event PropertyChangeHandler<MapSchema<Player>> __playersChange;
 		public Action OnPlayersChange(PropertyChangeHandler<MapSchema<Player>> __handler, bool __immediate = true) {
@@ -38,4 +37,3 @@ namespace Network.Schemas
 		}
 	}
 }
-
