@@ -13,6 +13,13 @@ namespace Gameplay.SnakeLogic
         {
             var direction = target - transform.position;
             _targetRotation = Quaternion.LookRotation(direction, Vector3.up);
+            transform.rotation = _targetRotation;
+        }
+
+        public void SmoothLookAt(Vector3 target)
+        {
+            var direction = target - transform.position;
+            _targetRotation = Quaternion.LookRotation(direction, Vector3.up);
         }
         
         public void ResetRotation() => 

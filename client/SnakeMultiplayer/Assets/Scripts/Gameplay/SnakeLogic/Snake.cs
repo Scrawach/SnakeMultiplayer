@@ -13,6 +13,9 @@ namespace Gameplay.SnakeLogic
         public void AddDetail(GameObject detail) => 
             _body.AddDetail(detail);
 
+        public void SmoothLookAt(Vector3 target) => 
+            _head.LookAt(target);
+        
         public void LookAt(Vector3 target) => 
             _head.LookAt(target);
 

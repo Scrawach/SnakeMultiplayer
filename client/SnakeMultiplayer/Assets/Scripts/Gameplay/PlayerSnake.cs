@@ -23,7 +23,7 @@ namespace Gameplay
             if (_input.IsMoveButtonPressed())
             {
                 TargetPoint = _input.WorldMousePosition();
-                _snake.LookAt(TargetPoint);
+                _snake.SmoothLookAt(TargetPoint);
             }
             else
             {
