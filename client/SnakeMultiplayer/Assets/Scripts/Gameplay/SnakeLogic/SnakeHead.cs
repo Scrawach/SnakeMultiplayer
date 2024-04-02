@@ -4,9 +4,11 @@ namespace Gameplay.SnakeLogic
 {
     public class SnakeHead : MonoBehaviour
     {
-        [SerializeField] private float _speed = 2f;
-        
+        private float _speed;
         private Quaternion _targetRotation;
+
+        public void Construct(float speed) => 
+            _speed = speed;
 
         public void LookAt(Vector3 target)
         {

@@ -4,10 +4,16 @@ namespace Gameplay
 {
     public class PlayerAim : MonoBehaviour
     {
-        [SerializeField] private float _speed = 2f;
-        [SerializeField] private float _rotationSpeed = 180f;
+        private float _speed;
+        private float _rotationSpeed;
         
         private Quaternion _targetRotation;
+
+        public void Construct(float speed, float rotationSpeed)
+        {
+            _speed = speed;
+            _rotationSpeed = rotationSpeed;
+        }
 
         public void SmoothLookAt(Vector3 target)
         {

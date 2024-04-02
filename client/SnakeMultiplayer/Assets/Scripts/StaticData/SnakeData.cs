@@ -1,12 +1,11 @@
 ﻿using System;
 
-namespace Gameplay.SnakeLogic
+namespace StaticData
 {
     [Serializable]
-    public class SnakeConfig
+    public class SnakeData
     {
         public float MovementSpeed;
         public float RotationSpeed;
-        public int CountOfDetails;
     }
 }
