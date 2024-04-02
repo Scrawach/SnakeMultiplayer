@@ -1,26 +1,31 @@
-using System;
-using Reflex.Attributes;
-using Services;
 using UnityEngine;
+using Vector3 = UnityEngine.Vector3;
 
 namespace Gameplay
 {
     public class Snake : MonoBehaviour
     {
-        [SerializeField] private MoveForward _move;
-        
-        private InputService _input;
+        [SerializeField] private SnakeHead _head;
+        [SerializeField] private SnakeBody _body;
 
-        [Inject]
-        public void Construct(InputService input) => 
-            _input = input;
+        [SerializeField] private GameObject _detailPrefab;
+        [SerializeField] private int _countOfDetails;
 
-        private void Update()
+        private void Start()
         {
-            if (_input.IsMoveButtonPressed())
-                _move.LookAt(_input.WorldMousePosition());
-            else
-                _move.ResetRotation();
+            var headTransform = _head.transform;
+            for (var i = 0; i < _countOfDetails; i++)
+            {
+                var instance = Instantiate(_detailPrefab, headTransform.position, headTransform.rotation, transform);
+                _body.AddDetail(instance);
+            }
         }
+
+        public void LookAt(Vector3 target) => 
+            _head.LookAt(target);
+
+        public void ResetRotation() => 
+            _head.ResetRotation();
     }
+    
 }
