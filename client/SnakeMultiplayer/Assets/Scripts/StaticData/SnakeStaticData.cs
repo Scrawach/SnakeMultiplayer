@@ -6,5 +6,6 @@ namespace StaticData
     public class SnakeStaticData : ScriptableObject
     {
         public SnakeData Data;
+        public SnakeSkins Skins;
     }
 }
