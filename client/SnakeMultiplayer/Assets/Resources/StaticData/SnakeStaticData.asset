@@ -15,3 +15,6 @@ MonoBehaviour:
   Data:
     MovementSpeed: 10
     RotationSpeed: 90
+  Skins:
+    Materials:
+    - {fileID: 2100000, guid: de05301aa5b0c214b931b42cec467e7c, type: 2}

@@ -1,11 +1,12 @@
 ﻿using System;
+using UnityEngine;
 
 namespace StaticData
 {
     [Serializable]
     public class SnakeData
     {
-        public float MovementSpeed;
-        public float RotationSpeed;
+        [Min(0)] public float MovementSpeed;
+        [Min(0)] public float RotationSpeed;
     }
 }
