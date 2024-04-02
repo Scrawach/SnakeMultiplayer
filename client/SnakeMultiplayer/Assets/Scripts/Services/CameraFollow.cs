@@ -13,6 +13,9 @@ namespace Services
 
         private void LateUpdate()
         {
+            if (_target == null)
+                return;
+            
             var desiredPosition = _target.transform.position;
             desiredPosition.y = _offsetY;
             transform.position = desiredPosition;

@@ -8,8 +8,11 @@ namespace Infrastructure
     {
         public void InstallBindings(ContainerBuilder builder)
         {
+            builder.AddSingleton(typeof(Injector));
             builder.AddSingleton(typeof(CameraProvider));
             builder.AddSingleton(typeof(InputService));
+            builder.AddSingleton(typeof(Assets));
+            builder.AddSingleton(typeof(GameFactory));
         }
     }
 }
