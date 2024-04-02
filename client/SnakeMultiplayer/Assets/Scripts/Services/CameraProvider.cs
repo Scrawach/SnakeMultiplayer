@@ -6,10 +6,15 @@ namespace Services
     {
         public Camera Current { get; }
 
-        public CameraProvider() => 
+        private readonly CameraFollow _cameraFollow;
+
+        public CameraProvider()
+        {
             Current = Camera.main;
+            _cameraFollow = Current.GetComponent<CameraFollow>();
+        }
 
         public void Follow(Transform target) => 
-            Current.GetComponent<CameraFollow>().Follow(target);
+            _cameraFollow.Follow(target);
     }
 }
