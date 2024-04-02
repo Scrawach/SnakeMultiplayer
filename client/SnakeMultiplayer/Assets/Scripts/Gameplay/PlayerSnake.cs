@@ -1,4 +1,5 @@
-﻿using Gameplay.SnakeLogic;
+﻿using System;
+using Gameplay.SnakeLogic;
 using Reflex.Attributes;
 using Services;
 using UnityEngine;
@@ -10,7 +11,9 @@ namespace Gameplay
         [SerializeField] private Snake _snake;
         
         private InputService _input;
-
+        
+        public Vector3 TargetPoint { get; private set; }
+        
         [Inject]
         public void Construct(InputService input) => 
             _input = input;
@@ -18,9 +21,14 @@ namespace Gameplay
         private void Update()
         {
             if (_input.IsMoveButtonPressed())
-                _snake.LookAt(_input.WorldMousePosition());
+            {
+                TargetPoint = _input.WorldMousePosition();
+                _snake.LookAt(TargetPoint);
+            }
             else
+            {
                 _snake.ResetRotation();
+            }
         }
     }
 }

@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4841640914117523917, guid: d0ce77cc113c46641a085c61746b0141, type: 3}
       propertyPath: m_Name
-      value: Snake
+      value: Remote Snake
       objectReference: {fileID: 0}
     - target: {fileID: 8202999466105782635, guid: d0ce77cc113c46641a085c61746b0141, type: 3}
       propertyPath: m_LocalPosition.x
@@ -55,5 +55,37 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4841640914117523917, guid: d0ce77cc113c46641a085c61746b0141, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7336387243547234266}
   m_SourcePrefab: {fileID: 100100000, guid: d0ce77cc113c46641a085c61746b0141, type: 3}
+--- !u!1 &259043858979018685 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4841640914117523917, guid: d0ce77cc113c46641a085c61746b0141, type: 3}
+  m_PrefabInstance: {fileID: 4659178075446586992}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7336387243547234266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 259043858979018685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a6ec9fe923644e7890b16fc29ffc9d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _snake: {fileID: 1588961439212598365}
+--- !u!114 &1588961439212598365 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6243565528032959021, guid: d0ce77cc113c46641a085c61746b0141, type: 3}
+  m_PrefabInstance: {fileID: 4659178075446586992}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 259043858979018685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e7b5a78b5a2419fbdb1b9076b58fdc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
