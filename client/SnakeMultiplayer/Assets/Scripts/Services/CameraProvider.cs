@@ -8,5 +8,8 @@ namespace Services
 
         public CameraProvider() => 
             Current = Camera.main;
+
+        public void Follow(Transform target) => 
+            Current.GetComponent<CameraFollow>().Follow(target);
     }
 }

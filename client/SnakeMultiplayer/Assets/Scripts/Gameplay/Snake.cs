@@ -1,3 +1,5 @@
+using Reflex.Attributes;
+using Services;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
 
@@ -10,6 +12,10 @@ namespace Gameplay
 
         [SerializeField] private GameObject _detailPrefab;
         [SerializeField] private int _countOfDetails;
+
+        [Inject]
+        public void Construct(CameraProvider cameraProvider) => 
+            cameraProvider.Follow(_head.transform);
 
         private void Start()
         {
