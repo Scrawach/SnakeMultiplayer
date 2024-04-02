@@ -3,13 +3,14 @@ import { Player } from "./Player";
 import { Vector2Data } from "./Vector2Data";
 
 export class GameRoomState extends Schema {
-    readonly mapSize: number = 256;
+    readonly mapSize: number = 50;
 
     @type({ map: Player }) players = new MapSchema<Player>();
 
     createPlayer(sessionId: string): Player {
         const player = new Player();
         player.position = this.getSpawnPoint();
+        player.size = 1;
         this.players.set(sessionId, player);
         return player;
     }
