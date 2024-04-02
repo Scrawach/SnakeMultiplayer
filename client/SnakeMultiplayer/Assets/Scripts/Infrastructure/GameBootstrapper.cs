@@ -1,4 +1,5 @@
-﻿using Reflex.Attributes;
+﻿using Network.Services;
+using Reflex.Attributes;
 using Services;
 using UnityEngine;
 
@@ -6,20 +7,23 @@ namespace Infrastructure
 {
     public class GameBootstrapper : MonoBehaviour
     {
-        private GameFactory _gameFactory;
-        private CameraProvider _cameraProvider;
+        private NetworkClient _client;
+        private StaticDataService _staticData;
         
         [Inject]
-        public void Construct(GameFactory factory, CameraProvider cameraProvider)
+        public void Construct(NetworkClient client, StaticDataService staticData)
         {
-            _gameFactory = factory;
-            _cameraProvider = cameraProvider;
+            _client = client;
+            _staticData = staticData;
         }
 
-        private void Start()
+        private async void Start()
         {
-            var snake = _gameFactory.CreateSnake(Vector3.zero, 9);
-            _cameraProvider.Follow(snake.Head.transform);
+            _staticData.Load(); 
+            await _client.Connect();
         }
+
+        private async void OnDestroy() => 
+            await _client.Disconnect();
     }
 }

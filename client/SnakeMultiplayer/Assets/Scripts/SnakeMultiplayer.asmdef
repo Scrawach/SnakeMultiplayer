@@ -2,7 +2,9 @@
     "name": "SnakeMultiplayer",
     "rootNamespace": "",
     "references": [
-        "GUID:1530a967b84cfb44dbdd5e8a1989764f"
+        "GUID:1530a967b84cfb44dbdd5e8a1989764f",
+        "GUID:7d8788162c0190c4c8b801543ada1607",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
