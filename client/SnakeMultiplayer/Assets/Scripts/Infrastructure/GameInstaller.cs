@@ -14,7 +14,6 @@ namespace Infrastructure
             builder.AddSingleton(typeof(InputService));
             builder.AddSingleton(typeof(Assets));
             builder.AddSingleton(typeof(StaticDataService));
-            builder.AddSingleton(typeof(GameFactory));
 
             builder.AddSingleton(typeof(NetworkClient));
             builder.AddSingleton(typeof(NetworkPlayersListener));

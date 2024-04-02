@@ -19,5 +19,4 @@ namespace Gameplay.SnakeLogic
         public void ResetRotation() => 
             _head.ResetRotation();
     }
-    
 }

@@ -1,4 +1,5 @@
-﻿using Gameplay.SnakeLogic;
+﻿using Gameplay;
+using Gameplay.SnakeLogic;
 using Infrastructure;
 using Network.Extensions;
 using Services;
@@ -43,6 +44,9 @@ namespace Network.Services
         private Snake CreateRemotePlayer(string key, Player player)
         {
             var snake = CreateSnake(RemotePlayerSnakePath, player.position.ToVector3(), player.size);
+            var remoteSnake = snake.GetComponent<RemoteSnake>();
+            var positionDispose = player.OnPositionChange(remoteSnake.ChangePosition);
+            //player.OnSizeChange(remoteSnake.ChangeSize);
             return snake;
         }
         

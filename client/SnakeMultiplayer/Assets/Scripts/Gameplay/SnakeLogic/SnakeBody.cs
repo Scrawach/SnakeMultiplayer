@@ -12,6 +12,8 @@ namespace Gameplay.SnakeLogic
         private readonly List<Transform> _details = new List<Transform>();
         private readonly SnakeHistory _history = new SnakeHistory();
         
+        public int Size => _details.Count;
+
         private void Awake() => 
             _history.Add(_head);
 
