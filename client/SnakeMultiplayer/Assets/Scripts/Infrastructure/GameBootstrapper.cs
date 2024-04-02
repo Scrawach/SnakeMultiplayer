@@ -18,7 +18,7 @@ namespace Infrastructure
 
         private void Start()
         {
-            var snake = _gameFactory.CreateSnake(Vector3.zero, 2);
+            var snake = _gameFactory.CreateSnake(Vector3.zero, 9);
             _cameraProvider.Follow(snake.Head.transform);
         }
     }
