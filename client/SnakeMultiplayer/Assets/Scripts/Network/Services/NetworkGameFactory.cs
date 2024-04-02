@@ -1,5 +1,4 @@
-﻿using System;
-using Gameplay.SnakeLogic;
+﻿using Gameplay.SnakeLogic;
 using Infrastructure;
 using Network.Extensions;
 using Services;
@@ -15,14 +14,13 @@ namespace Network.Services
         
         private readonly INetworkStatusProvider _networkStatus;
         private readonly Assets _assets;
-        private readonly CameraProvider _cameraProvider;
+        private readonly CameraProvider _camera;
 
-        public NetworkGameFactory(INetworkStatusProvider networkStatus, Assets assets, 
-            CameraProvider cameraProvider)
+        public NetworkGameFactory(INetworkStatusProvider networkStatus, Assets assets, CameraProvider camera)
         {
             _networkStatus = networkStatus;
             _assets = assets;
-            _cameraProvider = cameraProvider;
+            _camera = camera;
         }
 
         public Snake CreateSnake(string key, Player player) => 
@@ -38,7 +36,7 @@ namespace Network.Services
         private Snake CreatePlayer(string key, Player player)
         {
             var snake = CreateSnake(PlayerSnakePath, player.position.ToVector3(), player.size);
-            _cameraProvider.Follow(snake.Head.transform);
+            _camera.Follow(snake.Head.transform);
             return snake;
         }
 
