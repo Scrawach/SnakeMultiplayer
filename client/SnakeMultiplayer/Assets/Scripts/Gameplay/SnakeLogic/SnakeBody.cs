@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Gameplay
+namespace Gameplay.SnakeLogic
 {
     public class SnakeBody : MonoBehaviour
     {
@@ -33,7 +33,7 @@ namespace Gameplay
             return detail.gameObject;
         }
         
-        private void Update()
+        private void LateUpdate()
         {
             var distance = (_head.position - _history.FirstPosition).magnitude;
             distance = UpdateHistories(distance);

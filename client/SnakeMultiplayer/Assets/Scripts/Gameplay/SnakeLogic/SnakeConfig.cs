@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Gameplay
+namespace Gameplay.SnakeLogic
 {
     [Serializable]
     public class SnakeConfig

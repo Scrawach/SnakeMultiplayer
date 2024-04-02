@@ -1,4 +1,5 @@
-﻿using Reflex.Attributes;
+﻿using Gameplay.SnakeLogic;
+using Reflex.Attributes;
 using Services;
 using UnityEngine;
 
