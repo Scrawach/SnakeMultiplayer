@@ -29,10 +29,10 @@ namespace Network.Services.RoomHandlers
             _disposes.Clear();
         }
         
-        private void OnPlayerAdded(string key, Player player) => 
+        private void OnPlayerAdded(string key, PlayerSchema player) => 
             _networkGameFactory.CreateSnake(key, player);
 
-        private void OnPlayerRemoved(string key, Player player) => 
+        private void OnPlayerRemoved(string key, PlayerSchema player) => 
             _networkGameFactory.RemoveSnake(key);
     }
 }

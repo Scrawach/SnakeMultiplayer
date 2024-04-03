@@ -1,9 +1,10 @@
 import { Room, Client } from "@colyseus/core";
 import { GameRoomState } from "./schema/GameRoomState";
-import { Vector2Data } from "./schema/Vector2Data";
+import { Vector2Schema } from "./schema/Vector2Schema";
 import { StaticData } from "../services/staticData";
 
 export class GameRoom extends Room<GameRoomState> {
+  readonly startApplesCount: number = 100;
 
   onCreate (options: any) {
     console.log("Game Room created!")
@@ -13,11 +14,13 @@ export class GameRoom extends Room<GameRoomState> {
     this.setState(new GameRoomState(staticData));
     
     this.onMessage("move", (client, data) => {
-      const position = new Vector2Data();
-      position.x = data.position.x;
-      position.y = data.position.y;
+      const position = new Vector2Schema(data.position.x, data.position.y);
       this.state.movePlayer(client.sessionId, position);
     });
+
+    for (var i = 0; i < this.startApplesCount; i++) {
+      this.state.createApple();
+    }
   }
 
   onAuth(client: Client, options: any, req: any) {

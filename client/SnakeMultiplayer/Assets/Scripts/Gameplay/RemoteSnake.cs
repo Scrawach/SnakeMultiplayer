@@ -9,7 +9,7 @@ namespace Gameplay
     {
         [SerializeField] private Snake _snake;
         
-        public void ChangePosition(Vector2Data current, Vector2Data previous) => 
+        public void ChangePosition(Vector2Schema current, Vector2Schema previous) => 
             _snake.LookAt(current.ToVector3());
     }
 }

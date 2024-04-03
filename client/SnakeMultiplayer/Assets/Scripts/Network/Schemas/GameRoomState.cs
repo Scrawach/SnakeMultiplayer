@@ -10,15 +10,18 @@ using Action = System.Action;
 
 namespace Network.Schemas {
 	public partial class GameRoomState : Schema {
-		[Type(0, "map", typeof(MapSchema<Player>))]
-		public MapSchema<Player> players = new MapSchema<Player>();
+		[Type(0, "map", typeof(MapSchema<PlayerSchema>))]
+		public MapSchema<PlayerSchema> players = new MapSchema<PlayerSchema>();
+
+		[Type(1, "map", typeof(MapSchema<AppleSchema>))]
+		public MapSchema<AppleSchema> apples = new MapSchema<AppleSchema>();
 
 		/*
 		 * Support for individual property change callbacks below...
 		 */
 
-		protected event PropertyChangeHandler<MapSchema<Player>> __playersChange;
-		public Action OnPlayersChange(PropertyChangeHandler<MapSchema<Player>> __handler, bool __immediate = true) {
+		protected event PropertyChangeHandler<MapSchema<PlayerSchema>> __playersChange;
+		public Action OnPlayersChange(PropertyChangeHandler<MapSchema<PlayerSchema>> __handler, bool __immediate = true) {
 			if (__callbacks == null) { __callbacks = new SchemaCallbacks(); }
 			__callbacks.AddPropertyCallback(nameof(this.players));
 			__playersChange += __handler;
@@ -29,9 +32,22 @@ namespace Network.Schemas {
 			};
 		}
 
+		protected event PropertyChangeHandler<MapSchema<AppleSchema>> __applesChange;
+		public Action OnApplesChange(PropertyChangeHandler<MapSchema<AppleSchema>> __handler, bool __immediate = true) {
+			if (__callbacks == null) { __callbacks = new SchemaCallbacks(); }
+			__callbacks.AddPropertyCallback(nameof(this.apples));
+			__applesChange += __handler;
+			if (__immediate && this.apples != null) { __handler(this.apples, null); }
+			return () => {
+				__callbacks.RemovePropertyCallback(nameof(apples));
+				__applesChange -= __handler;
+			};
+		}
+
 		protected override void TriggerFieldChange(DataChange change) {
 			switch (change.Field) {
-				case nameof(players): __playersChange?.Invoke((MapSchema<Player>) change.Value, (MapSchema<Player>) change.PreviousValue); break;
+				case nameof(players): __playersChange?.Invoke((MapSchema<PlayerSchema>) change.Value, (MapSchema<PlayerSchema>) change.PreviousValue); break;
+				case nameof(apples): __applesChange?.Invoke((MapSchema<AppleSchema>) change.Value, (MapSchema<AppleSchema>) change.PreviousValue); break;
 				default: break;
 			}
 		}

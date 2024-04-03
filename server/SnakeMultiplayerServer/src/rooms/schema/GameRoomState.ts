@@ -1,25 +1,32 @@
 import { Schema, MapSchema, type } from "@colyseus/schema";
-import { Player } from "./Player";
-import { Vector2Data } from "./Vector2Data";
+import { PlayerSchema } from "./PlayerSchema";
+import { Vector2Schema } from "./Vector2Schema";
 import { StaticData } from "../../services/staticData";
+import { AppleSchema } from "./AppleSchema";
 
 export class GameRoomState extends Schema {
     readonly mapSize: number = 50;
 
-    @type({ map: Player }) players = new MapSchema<Player>();
+    @type({ map: PlayerSchema }) players = new MapSchema<PlayerSchema>();
+    @type({ map: AppleSchema}) apples = new MapSchema<AppleSchema>();
 
-    staticData: StaticData
+    staticData: StaticData;
+    lastAppleId: number;
 
     constructor(staticData: StaticData) {
         super();
         this.staticData = staticData;
     }
 
-    createPlayer(sessionId: string): Player {
-        const player = new Player();
-        player.position = this.getSpawnPoint();
-        player.size = 1;
-        player.skinId = this.getRandomSkinId();
+    createApple() : AppleSchema {
+        const data = new AppleSchema(this.getSpawnPoint(this.mapSize));
+        this.apples.set(String(this.lastAppleId), data);
+        this.lastAppleId++;
+        return data;
+    }
+
+    createPlayer(sessionId: string): PlayerSchema {
+        const player = new PlayerSchema(this.getSpawnPoint(this.mapSize), this.getRandomSkinId(), 1);
         this.players.set(sessionId, player);
         console.log(player.skinId);
         return player;
@@ -33,14 +40,13 @@ export class GameRoomState extends Schema {
         return Math.floor(Math.random() * this.staticData.getAvailableSkinCount());
     }
 
-    getSpawnPoint(): Vector2Data {
-        const position = new Vector2Data();
-        position.x = Math.floor(Math.random() * this.mapSize) - this.mapSize / 2;
-        position.y = Math.floor(Math.random() * this.mapSize) - this.mapSize / 2;
-        return position;
+    getSpawnPoint(size: number): Vector2Schema {
+        const x = Math.floor(Math.random() * size) - size / 2;
+        const y = Math.floor(Math.random() * size) - size / 2;
+        return new Vector2Schema(x, y);
     }
 
-    movePlayer(sessionId: string, targetPosition: Vector2Data) {
+    movePlayer(sessionId: string, targetPosition: Vector2Schema) {
         const player = this.players.get(sessionId);
         player.position = targetPosition;
     }

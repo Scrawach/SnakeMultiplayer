@@ -32,7 +32,7 @@ namespace Network.Services.Factory
             _staticData = staticData;
         }
 
-        public Snake CreateSnake(string key, Player player) => 
+        public Snake CreateSnake(string key, PlayerSchema player) => 
             _networkStatus.IsPlayer(key) 
                 ? CreatePlayer(key, player) 
                 : CreateRemotePlayer(key, player);
@@ -46,7 +46,7 @@ namespace Network.Services.Factory
             Object.Destroy(info.Snake.gameObject);
         }
 
-        private Snake CreatePlayer(string key, Player player)
+        private Snake CreatePlayer(string key, PlayerSchema player)
         {
             var data = _staticData.ForSnake();
             var snake = CreateRemoteSnake(key, PlayerSnakePath, player, data.MovementSpeed);
@@ -55,13 +55,13 @@ namespace Network.Services.Factory
             return snake;
         }
 
-        private Snake CreateRemotePlayer(string key, Player player)
+        private Snake CreateRemotePlayer(string key, PlayerSchema player)
         {
             var data = _staticData.ForSnake();
             return CreateRemoteSnake(key, RemotePlayerSnakePath, player, data.MovementSpeed);
         }
 
-        private Snake CreateRemoteSnake(string key, string pathToPrefab, Player player, float movementSpeed)
+        private Snake CreateRemoteSnake(string key, string pathToPrefab, PlayerSchema player, float movementSpeed)
         {
             var skin = _staticData.ForSnakeSkin(player.skinId);
             var snake = CreateSnake(pathToPrefab, player.position.ToVector3(), player.size, skin);

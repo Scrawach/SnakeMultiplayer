@@ -9,7 +9,7 @@ using Colyseus.Schema;
 using Action = System.Action;
 
 namespace Network.Schemas {
-	public partial class Vector2Data : Schema {
+	public partial class Vector2Schema : Schema {
 		[Type(0, "number")]
 		public float x = default(float);
 

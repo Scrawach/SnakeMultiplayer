@@ -26,7 +26,7 @@ namespace Network.Services.RoomHandlers
         {
             var message = new Dictionary<string, object>()
             {
-                [nameof(position)] = position.ToVector2Data()
+                [nameof(position)] = position.ToVector2Schema()
             };
             _room.Send(MovementEndPoint, message);
         }
