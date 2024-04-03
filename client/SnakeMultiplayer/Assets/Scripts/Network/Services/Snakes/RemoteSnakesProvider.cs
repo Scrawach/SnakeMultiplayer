@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Gameplay.SnakeLogic;
+using Network.Schemas;
 
 namespace Network.Services.Snakes
 {
@@ -13,8 +14,8 @@ namespace Network.Services.Snakes
 
         public RemoteSnakeInfo this[string key] => _snakes[key];
         
-        public void Add(string key, Snake snake, params Action[] disposes) => 
-            _snakes[key] = new RemoteSnakeInfo() { Snake = snake, Disposes = disposes };
+        public void Add(string key, PlayerSchema player, Snake snake, params Action[] disposes) => 
+            _snakes[key] = new RemoteSnakeInfo() { Snake = snake, Player = player, Disposes = disposes };
 
         public bool Remove(string key) => 
             _snakes.Remove(key);

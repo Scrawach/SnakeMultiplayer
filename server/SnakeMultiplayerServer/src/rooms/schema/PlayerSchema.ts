@@ -5,11 +5,25 @@ export class PlayerSchema extends Schema {
   @type(Vector2Schema) position: Vector2Schema;
   @type("uint8") skinId: number;
   @type("uint8") size: number;
+  @type("uint16") score: number;
 
-  constructor(position: Vector2Schema, skinId: number, size: number) {
+  constructor(position: Vector2Schema, skinId: number, score: number, size: number = 2) {
     super();
     this.position = position;
     this.skinId = skinId;
+    this.score = score;
     this.size = size;
+  }
+
+  addScore(count: number) {
+    this.score += count;
+    
+    let nextSize = 2 + Math.floor(this.score / 3);
+
+    if (nextSize > 255) {
+      nextSize = 255;
+    }
+
+    this.size = nextSize;
   }
 }

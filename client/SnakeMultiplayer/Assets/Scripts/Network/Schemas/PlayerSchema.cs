@@ -19,6 +19,9 @@ namespace Network.Schemas {
 		[Type(2, "uint8")]
 		public byte size = default(byte);
 
+		[Type(3, "uint16")]
+		public ushort score = default(ushort);
+
 		/*
 		 * Support for individual property change callbacks below...
 		 */
@@ -59,11 +62,24 @@ namespace Network.Schemas {
 			};
 		}
 
+		protected event PropertyChangeHandler<ushort> __scoreChange;
+		public Action OnScoreChange(PropertyChangeHandler<ushort> __handler, bool __immediate = true) {
+			if (__callbacks == null) { __callbacks = new SchemaCallbacks(); }
+			__callbacks.AddPropertyCallback(nameof(this.score));
+			__scoreChange += __handler;
+			if (__immediate && this.score != default(ushort)) { __handler(this.score, default(ushort)); }
+			return () => {
+				__callbacks.RemovePropertyCallback(nameof(score));
+				__scoreChange -= __handler;
+			};
+		}
+
 		protected override void TriggerFieldChange(DataChange change) {
 			switch (change.Field) {
 				case nameof(position): __positionChange?.Invoke((Vector2Schema) change.Value, (Vector2Schema) change.PreviousValue); break;
 				case nameof(skinId): __skinIdChange?.Invoke((byte) change.Value, (byte) change.PreviousValue); break;
 				case nameof(size): __sizeChange?.Invoke((byte) change.Value, (byte) change.PreviousValue); break;
+				case nameof(score): __scoreChange?.Invoke((ushort) change.Value, (ushort) change.PreviousValue); break;
 				default: break;
 			}
 		}

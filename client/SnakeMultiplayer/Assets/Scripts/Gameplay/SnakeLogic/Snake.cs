@@ -5,18 +5,19 @@ namespace Gameplay.SnakeLogic
 {
     public class Snake : MonoBehaviour
     {
-        [SerializeField] private SnakeHead _head;
-        [SerializeField] private SnakeBody _body;
-        
-        public SnakeHead Head => _head;
+        [field: SerializeField] public SnakeHead Head { get; private set;}
+        [field: SerializeField] public SnakeBody Body { get; private set; }
 
         public void AddDetail(GameObject detail) => 
-            _body.AddDetail(detail);
+            Body.AddDetail(detail);
+
+        public GameObject RemoveDetail() => 
+            Body.RemoveLastDetail();
 
         public void ResetRotation() => 
-            _head.ResetRotation();
+            Head.ResetRotation();
 
         public void LookAt(Vector3 target) => 
-            _head.LookAt(target);
+            Head.LookAt(target);
     }
 }

@@ -68,10 +68,27 @@ namespace Network.Services.Factory
             var skin = _staticData.ForSnakeSkin(player.skinId);
             var snake = CreateSnake(pathToPrefab, player.position.ToVector3(), player.size, skin);
             var remoteSnake = snake.GetComponent<RemoteSnake>();
+            snake.GetComponent<UniqueId>().Construct(key);
             var positionDispose = player.OnPositionChange(remoteSnake.ChangePosition);
-            _remoteSnakes.Add(key, snake, positionDispose);
+            var sizeChanges = player.OnSizeChange(remoteSnake.ChangeSize);
+            _remoteSnakes.Add(key, player,snake, positionDispose, sizeChanges);
             snake.Head.Construct(movementSpeed);
             return snake;
+        }
+
+        public void AddSnakeDetail(string snakeId, int count)
+        {
+            var snakeInfo = _remoteSnakes[snakeId];
+            var skin = _staticData.ForSnakeSkin(snakeInfo.Player.skinId);
+            for (var i = 0; i < count; i++)
+                snakeInfo.Snake.AddDetail(CreateSnakeDetail(snakeInfo.Snake.Head.transform, snakeInfo.Snake.transform, skin));
+        }
+
+        public void RemoveSnakeDetails(string snakeId, int count)
+        {
+            var snakeInfo = _remoteSnakes[snakeId];
+            for (var i = 0; i < count; i++) 
+                Object.Destroy(snakeInfo.Snake.RemoveDetail());
         }
 
         private Snake CreateSnake(string path, Vector3 position, int countOfDetails, Material skin)
@@ -79,14 +96,17 @@ namespace Network.Services.Factory
             var instance = _assets.Instantiate<Snake>(path, position, Quaternion.identity, null);
             instance.GetComponentInChildren<SnakeSkin>().ChangeTo(skin);
             
-            for (var i = 0; i < countOfDetails; i++)
-            {
-                var snakeSkin = _assets.Instantiate<SnakeSkin>(DetailPath, Vector3.zero, Quaternion.identity, instance.transform);
-                snakeSkin.ChangeTo(skin);
-                instance.AddDetail(snakeSkin.gameObject);
-            }
-            
+            for (var i = 0; i < countOfDetails; i++) 
+                instance.AddDetail(CreateSnakeDetail(instance.Head.transform, instance.transform, skin));
+
             return instance;
+        }
+
+        private GameObject CreateSnakeDetail(Transform head, Transform parent, Material skin)
+        {
+            var instance = _assets.Instantiate<SnakeSkin>(DetailPath, head.position, head.rotation, parent);
+            instance.ChangeTo(skin);
+            return instance.gameObject;
         }
 
         public Apple CreateApple(string key, AppleSchema schema)

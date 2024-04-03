@@ -6,6 +6,7 @@ import { AppleSchema } from "./AppleSchema";
 
 export class GameRoomState extends Schema {
     readonly mapSize: number = 140;
+    readonly scorePerApple: number = 1;
 
     @type({ map: PlayerSchema }) players = new MapSchema<PlayerSchema>();
     @type({ map: AppleSchema}) apples = new MapSchema<AppleSchema>();
@@ -30,6 +31,7 @@ export class GameRoomState extends Schema {
         const apple = this.apples.get(appleId);
 
         apple.position = this.getSpawnPoint(this.mapSize);
+        player.addScore(this.scorePerApple);
     }
 
     createPlayer(sessionId: string): PlayerSchema {
