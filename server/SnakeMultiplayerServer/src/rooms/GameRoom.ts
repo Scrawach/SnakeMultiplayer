@@ -18,6 +18,10 @@ export class GameRoom extends Room<GameRoomState> {
       this.state.movePlayer(client.sessionId, position);
     });
 
+    this.onMessage("collectApple", (client, data) => {
+      this.state.collectApple(client.sessionId, data.appleId);
+    })
+
     for (var i = 0; i < this.startApplesCount; i++) {
       this.state.createApple();
     }

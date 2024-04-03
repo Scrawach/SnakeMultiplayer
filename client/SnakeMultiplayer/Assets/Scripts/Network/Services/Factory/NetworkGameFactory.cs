@@ -92,6 +92,8 @@ namespace Network.Services.Factory
         public Apple CreateApple(string key, AppleSchema schema)
         {
             var apple = _assets.Instantiate<Apple>(ApplePath, schema.position.ToVector3(), Quaternion.identity, null);
+            apple.GetComponent<UniqueId>().Construct(key);
+            schema.OnPositionChange(apple.ChangePosition);
             return apple;
         }
 
