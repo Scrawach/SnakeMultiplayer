@@ -6,11 +6,13 @@ namespace Network.Services.RoomHandlers
     public class NetworkStateInitializer : INetworkRoomHandler
     {
         private readonly NetworkPlayersListener _playersListener;
+        private readonly NetworkApplesListener _applesListener;
         private ColyseusRoom<GameRoomState> _room;
 
-        public NetworkStateInitializer(NetworkPlayersListener playersListener)
+        public NetworkStateInitializer(NetworkPlayersListener playersListener, NetworkApplesListener applesListener)
         {
             _playersListener = playersListener;
+            _applesListener = applesListener;
         }
 
         public void Handle(ColyseusRoom<GameRoomState> room)
@@ -32,6 +34,7 @@ namespace Network.Services.RoomHandlers
             
             _room.OnStateChange -= OnStateChanged;
             _playersListener.Initialize(state);
+            _applesListener.Initialize(state);
         }
     }
 }

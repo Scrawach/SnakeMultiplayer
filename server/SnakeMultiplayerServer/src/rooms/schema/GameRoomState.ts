@@ -5,13 +5,13 @@ import { StaticData } from "../../services/staticData";
 import { AppleSchema } from "./AppleSchema";
 
 export class GameRoomState extends Schema {
-    readonly mapSize: number = 50;
+    readonly mapSize: number = 150;
 
     @type({ map: PlayerSchema }) players = new MapSchema<PlayerSchema>();
     @type({ map: AppleSchema}) apples = new MapSchema<AppleSchema>();
 
     staticData: StaticData;
-    lastAppleId: number;
+    lastAppleId: number = 0;
 
     constructor(staticData: StaticData) {
         super();
@@ -28,7 +28,6 @@ export class GameRoomState extends Schema {
     createPlayer(sessionId: string): PlayerSchema {
         const player = new PlayerSchema(this.getSpawnPoint(this.mapSize), this.getRandomSkinId(), 1);
         this.players.set(sessionId, player);
-        console.log(player.skinId);
         return player;
     }
 

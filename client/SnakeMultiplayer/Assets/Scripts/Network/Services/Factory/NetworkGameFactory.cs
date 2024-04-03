@@ -15,6 +15,8 @@ namespace Network.Services.Factory
         private const string PlayerSnakePath = "Snake/Player Snake";
         private const string RemotePlayerSnakePath = "Snake/Remote Snake";
         private const string DetailPath = "Snake/Body Detail";
+
+        private const string ApplePath = "Apple/Apple";
         
         private readonly INetworkStatusProvider _networkStatus;
         private readonly Assets _assets;
@@ -85,6 +87,17 @@ namespace Network.Services.Factory
             }
             
             return instance;
+        }
+
+        public Apple CreateApple(string key, AppleSchema schema)
+        {
+            var apple = _assets.Instantiate<Apple>(ApplePath, schema.position.ToVector3(), Quaternion.identity, null);
+            return apple;
+        }
+
+        public void RemoveApple(string key)
+        {
+            
         }
     }
 }
