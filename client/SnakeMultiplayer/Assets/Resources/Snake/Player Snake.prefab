@@ -83,7 +83,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 259043858979018685, guid: 53b455a24a377464b8de74f2900c2c36, type: 3}
       propertyPath: m_Name
-      value: Plyaer Snake
+      value: Player Snake
       objectReference: {fileID: 0}
     - target: {fileID: 3566377340201889563, guid: 53b455a24a377464b8de74f2900c2c36, type: 3}
       propertyPath: m_LocalPosition.x
@@ -138,6 +138,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 259043858979018685, guid: 53b455a24a377464b8de74f2900c2c36, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2048928561575777643}
+    - targetCorrespondingSourceObject: {fileID: 259043858979018685, guid: 53b455a24a377464b8de74f2900c2c36, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 653883914414219080}
   m_SourcePrefab: {fileID: 100100000, guid: 53b455a24a377464b8de74f2900c2c36, type: 3}
 --- !u!4 &706778495716921207 stripped
 Transform:
@@ -175,3 +178,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerAim: {fileID: 7864242325106408452}
+--- !u!114 &653883914414219080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4262908852080162769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6df1b831ead14b97b1b3daad38a22520, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _head: {fileID: 5102120922607977819}
+  _overlapRadius: 0.5
+  _targetMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!114 &5102120922607977819 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9114993132160214327, guid: 53b455a24a377464b8de74f2900c2c36, type: 3}
+  m_PrefabInstance: {fileID: 4084951812114473068}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4366b36b059346589ddc26c5a0360404, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
