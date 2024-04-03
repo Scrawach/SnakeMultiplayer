@@ -5,6 +5,7 @@ namespace Gameplay
 {
     public class SnakeHeadTrigger : MonoBehaviour
     {
+        [SerializeField] private Snake _snake;
         [SerializeField] private SnakeHead _head;
         [SerializeField] private float _overlapRadius = 0.5f;
         [SerializeField] private LayerMask _targetMask;
@@ -27,6 +28,13 @@ namespace Gameplay
             {
                 apple.Collect();
             }
+            else
+            {
+                GameOver();
+            }
         }
+
+        private void GameOver() => 
+            Destroy(_snake.gameObject);
     }
 }
