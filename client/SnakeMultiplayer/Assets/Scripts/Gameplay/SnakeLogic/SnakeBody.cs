@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Gameplay.SnakeLogic
@@ -34,7 +35,10 @@ namespace Gameplay.SnakeLogic
             _history.RemoveLast();
             return detail.gameObject;
         }
-        
+
+        public IEnumerable<Vector3> GetBodyDetailPositions() => 
+            _details.Select(detail => detail.position);
+
         private void LateUpdate()
         {
             var distance = (_head.position - _history.FirstPosition).magnitude;

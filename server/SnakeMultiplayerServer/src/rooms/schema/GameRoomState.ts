@@ -41,7 +41,9 @@ export class GameRoomState extends Schema {
     }
 
     removePlayer(sessionId: string) {
-        this.players.delete(sessionId);
+        if (this.players.has(sessionId)){
+            this.players.delete(sessionId);
+        }
     }
 
     getRandomSkinId(): number {

@@ -22,6 +22,12 @@ export class GameRoom extends Room<GameRoomState> {
       this.state.collectApple(client.sessionId, data.appleId);
     })
 
+    this.onMessage("snakeDeath", (client, data) => {
+      console.log("Snake died");
+      console.log(data);
+      this.state.removePlayer(data.snakeId);
+    })
+
     for (var i = 0; i < this.startApplesCount; i++) {
       this.state.createApple();
     }

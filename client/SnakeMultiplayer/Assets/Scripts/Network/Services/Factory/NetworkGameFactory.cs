@@ -23,15 +23,17 @@ namespace Network.Services.Factory
         private readonly CameraProvider _camera;
         private readonly RemoteSnakesProvider _remoteSnakes;
         private readonly StaticDataService _staticData;
+        private readonly NetworkTransmitter _transmitter;
 
         public NetworkGameFactory(INetworkStatusProvider networkStatus, Assets assets, CameraProvider camera,
-            RemoteSnakesProvider remoteSnakes, StaticDataService staticData)
+            RemoteSnakesProvider remoteSnakes, StaticDataService staticData, NetworkTransmitter transmitter)
         {
             _networkStatus = networkStatus;
             _assets = assets;
             _camera = camera;
             _remoteSnakes = remoteSnakes;
             _staticData = staticData;
+            _transmitter = transmitter;
         }
 
         public Snake CreateSnake(string key, PlayerSchema player) => 
@@ -41,13 +43,14 @@ namespace Network.Services.Factory
 
         public void RemoveSnake(string key)
         {
-            Debug.Log($"Remove {key}");
             var info = _remoteSnakes[key];
             _remoteSnakes.Remove(key);
+            
             foreach (var dispose in info.Disposes) 
                 dispose?.Invoke();
+            
+            _transmitter.SendDeathSnakeDetailPositions(key, info.Snake.Body.GetBodyDetailPositions());
             Object.Destroy(info.Snake.gameObject);
-            Debug.Log($"{info.Snake}");
         }
 
         private Snake CreatePlayer(string key, PlayerSchema player)

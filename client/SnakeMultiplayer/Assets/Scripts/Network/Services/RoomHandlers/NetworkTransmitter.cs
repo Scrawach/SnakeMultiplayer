@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Colyseus;
 using Network.Extensions;
 using Network.Schemas;
@@ -10,6 +11,7 @@ namespace Network.Services.RoomHandlers
     {
         private const string MovementEndPoint = "move";
         private const string AppleCollectEndPoint = "collectApple";
+        private const string DeathSnakePositionsEndPoint = "snakeDeath";
         
         private ColyseusRoom<GameRoomState> _room;
 
@@ -39,6 +41,16 @@ namespace Network.Services.RoomHandlers
                 [nameof(position)] = position.ToVector2Schema()
             };
             _room.Send(MovementEndPoint, message);
+        }
+
+        public void SendDeathSnakeDetailPositions(string snakeId, IEnumerable<Vector3> positions)
+        {
+            var message = new Dictionary<string, object>()
+            {
+                [nameof(snakeId)] = snakeId,
+                [nameof(positions)] = positions.Select(position => new Vector2(position.x, position.z))
+            };
+            _room.Send(DeathSnakePositionsEndPoint, message);
         }
     }
 }
