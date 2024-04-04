@@ -269,6 +269,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uniqueId: {fileID: 1487546583417941223}
+--- !u!114 &5102120922607977819 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9114993132160214327, guid: 53b455a24a377464b8de74f2900c2c36, type: 3}
+  m_PrefabInstance: {fileID: 4084951812114473068}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7458597725138000153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4366b36b059346589ddc26c5a0360404, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5321925656180278000 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8172886772292919964, guid: 53b455a24a377464b8de74f2900c2c36, type: 3}
@@ -291,6 +302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6df1b831ead14b97b1b3daad38a22520, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _head: {fileID: 5102120922607977819}
   _snakeDeath: {fileID: 1193273983838458752}
   _mouthCollider: {fileID: 7010408045826364179}
   _targetMask:

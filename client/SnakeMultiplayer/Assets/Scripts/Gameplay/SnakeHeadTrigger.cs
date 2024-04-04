@@ -1,11 +1,14 @@
-﻿using UnityEngine;
+﻿using Gameplay.SnakeLogic;
+using UnityEngine;
 
 namespace Gameplay
 {
     public class SnakeHeadTrigger : MonoBehaviour
     {
+        [SerializeField] private SnakeHead _head;
         [SerializeField] private SnakeDeath _snakeDeath;
         [SerializeField] private SphereCollider _mouthCollider;
+        [SerializeField, Range(0, 180)] private float _deathAngle = 100f;
         [SerializeField] private LayerMask _targetMask;
 
         private readonly Collider[] _colliders = new Collider[3];
@@ -25,6 +28,12 @@ namespace Gameplay
             if (target.TryGetComponent(out Apple apple))
             {
                 apple.Collect();
+            }
+            else if (target.TryGetComponent(out SnakeHead head))
+            {
+                var angle = Vector3.Angle(_head.transform.forward, head.transform.forward);
+                if (angle > _deathAngle)
+                    _snakeDeath.Die();
             }
             else
             {
