@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
 
@@ -19,5 +20,12 @@ namespace Gameplay.SnakeLogic
 
         public void LookAt(Vector3 target) => 
             Head.LookAt(target);
+
+        public IEnumerable<Vector3> GetBodyDetailPositions()
+        {
+            yield return Head.transform.position;
+            foreach (var detailPosition in Body.GetBodyDetailPositions())
+                yield return detailPosition;
+        }
     }
 }

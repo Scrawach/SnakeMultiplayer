@@ -1,4 +1,5 @@
-﻿using Gameplay;
+﻿using System.Linq;
+using Gameplay;
 using Gameplay.SnakeLogic;
 using Infrastructure;
 using Network.Extensions;
@@ -24,9 +25,11 @@ namespace Network.Services.Factory
         private readonly RemoteSnakesProvider _remoteSnakes;
         private readonly StaticDataService _staticData;
         private readonly NetworkTransmitter _transmitter;
+        private readonly VfxFactory _vfxFactory;
 
         public NetworkGameFactory(INetworkStatusProvider networkStatus, Assets assets, CameraProvider camera,
-            RemoteSnakesProvider remoteSnakes, StaticDataService staticData, NetworkTransmitter transmitter)
+            RemoteSnakesProvider remoteSnakes, StaticDataService staticData, NetworkTransmitter transmitter,
+            VfxFactory vfxFactory)
         {
             _networkStatus = networkStatus;
             _assets = assets;
@@ -34,6 +37,7 @@ namespace Network.Services.Factory
             _remoteSnakes = remoteSnakes;
             _staticData = staticData;
             _transmitter = transmitter;
+            _vfxFactory = vfxFactory;
         }
 
         public Snake CreateSnake(string key, PlayerSchema player) => 
@@ -51,8 +55,13 @@ namespace Network.Services.Factory
             
             foreach (var dispose in info.Disposes) 
                 dispose?.Invoke();
-            
-            _transmitter.SendDeathSnakeDetailPositions(key, info.Snake.Body.GetBodyDetailPositions());
+
+            var positions = info.Snake.GetBodyDetailPositions().ToArray();
+            var skin = _staticData.ForSnakeSkin(info.Player.skinId);
+            foreach (var position in positions) 
+                _vfxFactory.CreateDeathVfx(position, skin);
+
+            _transmitter.SendDeathSnakeDetailPositions(key, positions);
             Object.Destroy(info.Snake.gameObject);
         }
 

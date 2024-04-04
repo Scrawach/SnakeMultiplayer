@@ -18,6 +18,8 @@ namespace Infrastructure
             builder.AddSingleton(typeof(Assets));
             builder.AddSingleton(typeof(StaticDataService));
 
+            builder.AddSingleton(typeof(VfxFactory));
+            
             builder.AddSingleton(typeof(RemoteSnakesProvider));
             builder.AddSingleton(typeof(NetworkClient));
             builder.AddSingleton(typeof(NetworkPlayersListener));
