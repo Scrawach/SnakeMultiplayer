@@ -41,11 +41,13 @@ namespace Network.Services.Factory
 
         public void RemoveSnake(string key)
         {
+            Debug.Log($"Remove {key}");
             var info = _remoteSnakes[key];
             _remoteSnakes.Remove(key);
             foreach (var dispose in info.Disposes) 
                 dispose?.Invoke();
             Object.Destroy(info.Snake.gameObject);
+            Debug.Log($"{info.Snake}");
         }
 
         private Snake CreatePlayer(string key, PlayerSchema player)
@@ -104,7 +106,7 @@ namespace Network.Services.Factory
 
         private GameObject CreateSnakeDetail(Transform head, Transform parent, Material skin)
         {
-            var instance = _assets.Instantiate<SnakeSkin>(DetailPath, head.position, head.rotation, parent);
+            var instance = _assets.Instantiate<SnakeSkin>(DetailPath, head.position - head.forward, head.rotation, parent);
             instance.ChangeTo(skin);
             return instance.gameObject;
         }
