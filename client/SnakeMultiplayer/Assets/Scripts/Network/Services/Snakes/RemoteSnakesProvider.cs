@@ -19,5 +19,8 @@ namespace Network.Services.Snakes
 
         public bool Remove(string key) => 
             _snakes.Remove(key);
+
+        public bool Contains(string key) => 
+            _snakes.ContainsKey(key);
     }
 }

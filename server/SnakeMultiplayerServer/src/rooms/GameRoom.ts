@@ -23,13 +23,11 @@ export class GameRoom extends Room<GameRoomState> {
     })
 
     this.onMessage("snakeDeath", (client, data) => {
-      console.log("Snake died");
-      console.log(data);
-      this.state.removePlayer(data.snakeId);
+      this.state.processSnakeDeath(data.snakeId, data.positions);
     })
 
     for (var i = 0; i < this.startApplesCount; i++) {
-      this.state.createApple();
+      this.state.createAppleAtRandomPosition();
     }
   }
 

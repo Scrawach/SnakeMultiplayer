@@ -43,6 +43,9 @@ namespace Network.Services.Factory
 
         public void RemoveSnake(string key)
         {
+            if (!_remoteSnakes.Contains(key))
+                return;
+            
             var info = _remoteSnakes[key];
             _remoteSnakes.Remove(key);
             

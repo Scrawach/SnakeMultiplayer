@@ -13,14 +13,20 @@ export class GameRoomState extends Schema {
 
     staticData: StaticData;
     lastAppleId: number = 0;
+    processedDeaths: Set<string>;
 
     constructor(staticData: StaticData) {
         super();
         this.staticData = staticData;
+        this.processedDeaths = new Set<string>();
     }
 
-    createApple() : AppleSchema {
-        const data = new AppleSchema(this.getSpawnPoint(this.mapSize));
+    createAppleAtRandomPosition() : AppleSchema {
+        return this.createApple(this.getSpawnPoint(this.mapSize));
+    }
+
+    createApple(position: Vector2Schema) : AppleSchema {
+        const data = new AppleSchema(position);
         this.apples.set(String(this.lastAppleId), data);
         this.lastAppleId++;
         return data;
@@ -44,6 +50,25 @@ export class GameRoomState extends Schema {
         if (this.players.has(sessionId)){
             this.players.delete(sessionId);
         }
+    }
+
+    processSnakeDeath(snakeId: string, positions: any) {
+        if (this.processedDeaths.has(snakeId))
+            return;
+
+        this.removePlayer(snakeId);
+        this.processedDeaths.add(snakeId);
+        this.removeIdFromProcessedDeathAfterDelay(snakeId, 10_000);
+
+        for (var i = 0; i < positions.length; i++) {
+            const worldPosition = new Vector2Schema(positions[i].x, positions[i].y);
+            this.createApple(worldPosition);
+        }
+    }
+
+    async removeIdFromProcessedDeathAfterDelay(snakeId: string, delayInMilliseconds: number) {
+        await new Promise(resolve => setTimeout(resolve, delayInMilliseconds));
+        this.processedDeaths.delete(snakeId);
     }
 
     getRandomSkinId(): number {
