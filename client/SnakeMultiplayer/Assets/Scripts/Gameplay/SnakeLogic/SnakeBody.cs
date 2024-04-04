@@ -22,7 +22,6 @@ namespace Gameplay.SnakeLogic
         {
             var detailTransform = detail.transform;
             _details.Add(detailTransform);
-            //_details.Insert(0, detailTransform);
             _history.Add(detailTransform);
         }
 
