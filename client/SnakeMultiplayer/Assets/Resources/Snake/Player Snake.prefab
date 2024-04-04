@@ -214,6 +214,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3566377340201889563, guid: 53b455a24a377464b8de74f2900c2c36, type: 3}
   m_PrefabInstance: {fileID: 4084951812114473068}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1004610175472508209 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3837556880094526813, guid: 53b455a24a377464b8de74f2900c2c36, type: 3}
+  m_PrefabInstance: {fileID: 4084951812114473068}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7458597725138000153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1639872760224b3598af88f5b2308ed0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1487546583417941223 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3176297484738825355, guid: 53b455a24a377464b8de74f2900c2c36, type: 3}
@@ -304,7 +315,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _head: {fileID: 5102120922607977819}
   _snakeDeath: {fileID: 1193273983838458752}
+  _animator: {fileID: 1004610175472508209}
   _mouthCollider: {fileID: 7010408045826364179}
+  _deathAngle: 100
   _targetMask:
     serializedVersion: 2
     m_Bits: 55

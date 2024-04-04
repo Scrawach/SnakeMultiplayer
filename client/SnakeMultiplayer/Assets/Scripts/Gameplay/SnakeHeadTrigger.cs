@@ -1,4 +1,5 @@
-﻿using Gameplay.SnakeLogic;
+﻿using Gameplay.Animations;
+using Gameplay.SnakeLogic;
 using UnityEngine;
 
 namespace Gameplay
@@ -7,6 +8,7 @@ namespace Gameplay
     {
         [SerializeField] private SnakeHead _head;
         [SerializeField] private SnakeDeath _snakeDeath;
+        [SerializeField] private SnakeHeadAnimator _animator;
         [SerializeField] private SphereCollider _mouthCollider;
         [SerializeField, Range(0, 180)] private float _deathAngle = 100f;
         [SerializeField] private LayerMask _targetMask;
@@ -27,6 +29,7 @@ namespace Gameplay
         {
             if (target.TryGetComponent(out Apple apple))
             {
+                _animator.PlayEat();
                 apple.Collect();
             }
             else if (target.TryGetComponent(out SnakeHead head))
