@@ -1,8 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <ui:Template name="login" src="project://database/Assets/Resources/UI/login.uxml?fileID=9197481963319205126&amp;guid=01be639b08ea19d4ebd07940439c5ada&amp;type=3#login" />
-    <Style src="project://database/Assets/Resources/UI/connection-screen.uss?fileID=7433441132597879392&amp;guid=1accad7d738d50249a7286c2048c2a3a&amp;type=3#connection-screen" />
+    <ui:Template name="login" src="project://database/Assets/Resources/UI/ConnectionScreen/login.uxml?fileID=9197481963319205126&amp;guid=01be639b08ea19d4ebd07940439c5ada&amp;type=3#login" />
+    <Style src="project://database/Assets/Resources/UI/ConnectionScreen/connection-screen.uss?fileID=7433441132597879392&amp;guid=1accad7d738d50249a7286c2048c2a3a&amp;type=3#connection-screen" />
     <ui:VisualElement name="connection-screen" style="flex-grow: 1; align-items: center; justify-content: center;">
-        <ui:VisualElement class="connection-screen-background" style="right: 0; bottom: 0; left: 0; top: 0; background-color: rgba(76, 38, 132, 0.31); flex-grow: 1; position: absolute;" />
+        <ui:VisualElement class="connection-screen-background" style="right: 0; bottom: 0; left: 0; top: 0; background-color: rgba(76, 38, 132, 0.31); flex-grow: 1; position: absolute; display: none;" />
         <ui:Instance template="login" name="login-panel" style="transition-duration: 1s;" />
     </ui:VisualElement>
 </ui:UXML>
