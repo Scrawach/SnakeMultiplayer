@@ -70,7 +70,7 @@ namespace UI.Screens
             }
 
             SetEnabledButtons(false);
-            var result = await _gameBootstrapper.Connect();
+            var result = await _gameBootstrapper.Connect(_usernameField.value);
 
             if (result.IsSuccess)
             {

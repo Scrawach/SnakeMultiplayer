@@ -10,21 +10,36 @@ using Action = System.Action;
 
 namespace Network.Schemas {
 	public partial class PlayerSchema : Schema {
-		[Type(0, "ref", typeof(Vector2Schema))]
+		[Type(0, "string")]
+		public string username = default(string);
+
+		[Type(1, "ref", typeof(Vector2Schema))]
 		public Vector2Schema position = new Vector2Schema();
 
-		[Type(1, "uint8")]
+		[Type(2, "uint8")]
 		public byte skinId = default(byte);
 
-		[Type(2, "uint8")]
+		[Type(3, "uint8")]
 		public byte size = default(byte);
 
-		[Type(3, "uint16")]
+		[Type(4, "uint16")]
 		public ushort score = default(ushort);
 
 		/*
 		 * Support for individual property change callbacks below...
 		 */
+
+		protected event PropertyChangeHandler<string> __usernameChange;
+		public Action OnUsernameChange(PropertyChangeHandler<string> __handler, bool __immediate = true) {
+			if (__callbacks == null) { __callbacks = new SchemaCallbacks(); }
+			__callbacks.AddPropertyCallback(nameof(this.username));
+			__usernameChange += __handler;
+			if (__immediate && this.username != default(string)) { __handler(this.username, default(string)); }
+			return () => {
+				__callbacks.RemovePropertyCallback(nameof(username));
+				__usernameChange -= __handler;
+			};
+		}
 
 		protected event PropertyChangeHandler<Vector2Schema> __positionChange;
 		public Action OnPositionChange(PropertyChangeHandler<Vector2Schema> __handler, bool __immediate = true) {
@@ -76,6 +91,7 @@ namespace Network.Schemas {
 
 		protected override void TriggerFieldChange(DataChange change) {
 			switch (change.Field) {
+				case nameof(username): __usernameChange?.Invoke((string) change.Value, (string) change.PreviousValue); break;
 				case nameof(position): __positionChange?.Invoke((Vector2Schema) change.Value, (Vector2Schema) change.PreviousValue); break;
 				case nameof(skinId): __skinIdChange?.Invoke((byte) change.Value, (byte) change.PreviousValue); break;
 				case nameof(size): __sizeChange?.Invoke((byte) change.Value, (byte) change.PreviousValue); break;

@@ -45,8 +45,8 @@ export class GameRoomState extends Schema {
         }
     }
 
-    createPlayer(sessionId: string): PlayerSchema {
-        const player = new PlayerSchema(this.getSpawnPoint(this.mapSize), this.getRandomSkinId(), 1);
+    createPlayer(sessionId: string, username: string): PlayerSchema {
+        const player = new PlayerSchema(username, this.getSpawnPoint(this.mapSize), this.getRandomSkinId(), 1);
         this.players.set(sessionId, player);
         return player;
     }

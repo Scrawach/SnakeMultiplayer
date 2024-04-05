@@ -1,3 +1,7 @@
+using System;
+using System.Linq;
+using Reflex.Attributes;
+using Services.Leaders;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -6,8 +10,14 @@ namespace UI.Screens
     public class LeaderboardScreen : GameScreen
     {
         [SerializeField] private VisualTreeAsset _leaderItemTreeAsset;
-
+        [SerializeField] private int _maxCountOfLeaders = 6;
+        
         private VisualElement _leaderboardContainer;
+        private LeaderboardService _leaderboardService;
+        
+        [Inject]
+        public void Construct(LeaderboardService leaderboardService) => 
+            _leaderboardService = leaderboardService;
 
         protected override void Awake()
         {
@@ -15,16 +25,21 @@ namespace UI.Screens
             _leaderboardContainer = Screen.Q<VisualElement>("leaderboard-content");
         }
 
-        private void Start()
-        {
-            for (var i = 0; i < 6; i++)
-                _leaderboardContainer.Add(CreateLeaderboardItem());
-        }
+        private void OnEnable() => 
+            _leaderboardService.Updated += OnLeaderboardUpdated;
 
-        private VisualElement CreateLeaderboardItem()
+        private void OnDisable() => 
+            _leaderboardService.Updated -= OnLeaderboardUpdated;
+
+        private void OnLeaderboardUpdated()
         {
-            var item = _leaderItemTreeAsset.Instantiate();
-            return item;
+            _leaderboardContainer.Clear();
+            foreach (var leaderInfo in _leaderboardService.GetLeadersSortedByPosition().Take(_maxCountOfLeaders))
+            {
+                var item = new LeaderboardItem(_leaderItemTreeAsset);
+                item.Update(leaderInfo);
+                _leaderboardContainer.Add(item);
+            }
         }
     }
 }

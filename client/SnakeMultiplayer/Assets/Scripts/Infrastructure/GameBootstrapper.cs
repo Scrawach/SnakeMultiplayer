@@ -21,8 +21,8 @@ namespace Infrastructure
         private async void Start() => 
             _staticData.Load();
 
-        public async UniTask<ConnectionResult> Connect() => 
-            await _client.Connect();
+        public async UniTask<ConnectionResult> Connect(string username) => 
+            await _client.Connect(username);
         
         private async void OnDestroy() => 
             await _client.Disconnect();

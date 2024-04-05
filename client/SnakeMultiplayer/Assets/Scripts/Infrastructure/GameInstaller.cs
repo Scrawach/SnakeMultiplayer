@@ -4,6 +4,7 @@ using Network.Services.RoomHandlers;
 using Network.Services.Snakes;
 using Reflex.Core;
 using Services;
+using Services.Leaders;
 using UnityEngine;
 
 namespace Infrastructure
@@ -19,6 +20,7 @@ namespace Infrastructure
             builder.AddSingleton(typeof(StaticDataService));
 
             builder.AddSingleton(typeof(VfxFactory));
+            builder.AddSingleton(typeof(LeaderboardService));
             
             builder.AddSingleton(typeof(RemoteSnakesProvider));
             builder.AddSingleton(typeof(NetworkClient));
