@@ -1,5 +1,4 @@
-﻿using System;
-using Network.Extensions;
+﻿using Network.Extensions;
 using Network.Schemas;
 using Network.Services.RoomHandlers;
 using Reflex.Attributes;

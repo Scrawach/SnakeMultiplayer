@@ -86,6 +86,7 @@ namespace Network.Services.Factory
             var snake = CreateSnake(pathToPrefab, player.position.ToVector3(), player.size, skin);
             var remoteSnake = snake.GetComponent<RemoteSnake>();
             snake.GetComponent<UniqueId>().Construct(key);
+            snake.GetComponent<LeaderboardSnake>().Initialize(player);
             var positionDispose = player.OnPositionChange(remoteSnake.ChangePosition);
             var sizeChanges = player.OnSizeChange(remoteSnake.ChangeSize);
             _remoteSnakes.Add(key, player,snake, positionDispose, sizeChanges);
