@@ -27,7 +27,7 @@ namespace Network.Services.Factory
             var skin = _staticData.ForSnakeSkin(info.Player.skinId);
             
             foreach (var position in positions) 
-                _vfxFactory.CreateDeathVfx(position, skin);
+                _vfxFactory.CreateSnakeDeathVfx(position, skin);
 
             _transmitter.SendDeathSnakeDetailPositions(snakeId, positions);
         }
