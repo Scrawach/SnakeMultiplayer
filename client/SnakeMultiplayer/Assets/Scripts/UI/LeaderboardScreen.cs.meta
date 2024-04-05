@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 42533202251944498ae0e97df83fb605
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _document: {instanceID: 0}
+  - _leaderboardTreeAsset: {fileID: 9197481963319205126, guid: 9bfbe2edbf46a2b40854cacb31907ede, type: 3}
+  - _leaderItemTreeAsset: {fileID: 9197481963319205126, guid: 883094470102e2e4ca30a1cede5d33ff, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

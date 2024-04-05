@@ -1,0 +1,7 @@
+.login-panel-start-position {
+    top: -500px;
+}
+
+.login-panel-end-position {
+    top: 0;
+}

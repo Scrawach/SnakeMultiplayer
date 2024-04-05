@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:Template name="connection-screen" src="project://database/Assets/Resources/UI/ConnectionScreen/connection-screen.uxml?fileID=9197481963319205126&amp;guid=13c4eb8f9e5c0f04092a7ddb28b99836&amp;type=3#connection-screen" />
+    <ui:Template name="leaderboard" src="project://database/Assets/Resources/UI/Leaderboard/leaderboard.uxml?fileID=9197481963319205126&amp;guid=9bfbe2edbf46a2b40854cacb31907ede&amp;type=3#leaderboard" />
+    <ui:Instance template="leaderboard" name="leaderboard-screen" style="position: absolute; right: 5px; top: 5px;" />
+    <ui:Instance template="connection-screen" name="connection-screen" style="flex-grow: 1;" />
+</ui:UXML>

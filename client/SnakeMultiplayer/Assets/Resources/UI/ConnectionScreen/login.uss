@@ -1,0 +1,139 @@
+.unity-base-text-field__input {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    font-size: 32px;
+    -unity-font-definition: url('project://database/Assets/Fonts/DynaPuff-Regular.ttf?fileID=12800000&guid=e7a5668950b74f6459751a7e9ea7ae54&type=3#DynaPuff-Regular');
+    -unity-font-style: italic;
+    border-left-color: rgb(66, 48, 111);
+    border-right-color: rgb(66, 48, 111);
+    border-top-color: rgb(66, 48, 111);
+    border-bottom-color: rgb(66, 48, 111);
+    border-bottom-width: 4px;
+    border-right-width: 2px;
+    border-left-width: 2px;
+    border-top-width: 1px;
+    background-color: rgb(255, 255, 255);
+    color: rgb(115, 85, 186);
+}
+
+.unity-base-text-field__input--placeholder {
+    color: rgba(115, 85, 186, 0.47);
+}
+
+.unity-button {
+    background-color: rgb(115, 85, 186);
+    -unity-font-style: normal;
+    -unity-text-align: middle-center;
+    font-size: 32px;
+    color: rgb(255, 255, 255);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    border-left-color: rgb(66, 48, 111);
+    border-right-color: rgb(66, 48, 111);
+    border-top-color: rgb(66, 48, 111);
+    border-bottom-color: rgb(66, 48, 111);
+    border-right-width: 2px;
+    border-bottom-width: 4px;
+    border-left-width: 2px;
+    transition-duration: 0.1s;
+    -unity-font-definition: url('project://database/Assets/Fonts/DynaPuff-Bold.ttf?fileID=12800000&guid=abcc4d12efc3df841b87cc4a8bd1480e&type=3#DynaPuff-Bold');
+}
+
+.unity-button:hover {
+    background-color: rgb(155, 117, 245);
+    transition-property: all;
+    transition-duration: 0.1s;
+    transition-timing-function: ease;
+    transition-delay: 0s;
+    scale: 1.05 1.1;
+}
+
+.unity-button:active {
+    background-color: rgb(74, 55, 120);
+    transition-duration: 0.1s;
+}
+
+.unity-base-field {
+    transition-duration: 0.1s;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+}
+
+.unity-base-field:hover {
+    scale: 1.05 1.1;
+    transition-duration: 0.1s;
+}
+
+.login-panel {
+    flex-grow: 0;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 25px;
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-width: 5px;
+    border-left-color: rgba(115, 85, 186, 0.22);
+    border-right-color: rgba(115, 85, 186, 0.22);
+    border-top-color: rgba(115, 85, 186, 0.22);
+    border-bottom-color: rgba(115, 85, 186, 0.22);
+    justify-content: center;
+    align-items: stretch;
+    -unity-slice-scale: 2.3px;
+    background-color: rgb(215, 199, 229);
+    width: 400px;
+    height: 320px;
+}
+
+.login-margins {
+    flex-grow: 1;
+    margin-top: 25px;
+    margin-right: 25px;
+    margin-bottom: 0;
+    margin-left: 25px;
+    justify-content: center;
+    padding-top: 12px;
+    padding-right: 12px;
+    padding-bottom: 12px;
+    padding-left: 12px;
+}
+
+.login-header {
+    flex-grow: 0;
+    position: absolute;
+    top: 0;
+    height: 40px;
+    background-color: rgb(94, 68, 159);
+    right: 0;
+    left: 0;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-left-color: rgba(115, 85, 186, 0.22);
+    border-right-color: rgba(115, 85, 186, 0.22);
+    border-top-color: rgba(115, 85, 186, 0.22);
+    border-bottom-color: rgba(115, 85, 186, 0.22);
+    border-top-width: 4px;
+    border-right-width: 4px;
+    border-bottom-width: 0;
+    border-left-width: 4px;
+    width: 400px;
+}
