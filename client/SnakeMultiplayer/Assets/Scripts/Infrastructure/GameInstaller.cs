@@ -19,11 +19,13 @@ namespace Infrastructure
             builder.AddSingleton(typeof(Assets));
             builder.AddSingleton(typeof(StaticDataService));
 
-            builder.AddSingleton(typeof(VfxFactory));
             builder.AddSingleton(typeof(LeaderboardService));
+            builder.AddSingleton(typeof(SnakesFactory));
             builder.AddSingleton(typeof(AppleFactory));
+            builder.AddSingleton(typeof(VfxFactory));
+            builder.AddSingleton(typeof(SnakesDestruction));
             
-            builder.AddSingleton(typeof(RemoteSnakesProvider));
+            builder.AddSingleton(typeof(SnakesRegistry));
             builder.AddSingleton(typeof(NetworkClient));
             builder.AddSingleton(typeof(NetworkPlayersListener));
             builder.AddSingleton(typeof(NetworkApplesListener));

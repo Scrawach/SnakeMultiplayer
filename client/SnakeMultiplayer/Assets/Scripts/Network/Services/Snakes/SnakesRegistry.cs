@@ -5,11 +5,11 @@ using Network.Schemas;
 
 namespace Network.Services.Snakes
 {
-    public class RemoteSnakesProvider
+    public class SnakesRegistry
     {
         private readonly Dictionary<string, RemoteSnakeInfo> _snakes;
 
-        public RemoteSnakesProvider() => 
+        public SnakesRegistry() => 
             _snakes = new Dictionary<string, RemoteSnakeInfo>();
 
         public RemoteSnakeInfo this[string key] => _snakes[key];

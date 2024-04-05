@@ -14,16 +14,15 @@ namespace Gameplay
         [SerializeField] private UniqueId _uniqueId;
         [SerializeField] private TextMeshProUGUI _usernameLabel;
 
-        private NetworkGameFactory _gameFactory;
+        private SnakesFactory _snakesFactory;
         
         [Inject]
-        public void Construct(NetworkGameFactory gameFactory) => 
-            _gameFactory = gameFactory;
+        public void Construct(SnakesFactory snakesFactory) => 
+            _snakesFactory = snakesFactory;
 
         public void SetUsername(string username) => 
             _usernameLabel.text = username;
-
-
+        
         public void ChangePosition(Vector2Schema current, Vector2Schema previous) => 
             _snake.LookAt(current.ToVector3());
 
@@ -40,9 +39,9 @@ namespace Gameplay
             var difference = _snake.Body.Size - target;
 
             if (difference < 0)
-                _gameFactory.AddSnakeDetail(_uniqueId.Value, -difference);
+                _snakesFactory.AddSnakeDetail(_uniqueId.Value, -difference);
             else
-                _gameFactory.RemoveSnakeDetails(_uniqueId.Value, difference);
+                _snakesFactory.RemoveSnakeDetails(_uniqueId.Value, difference);
         }
     }
 }
