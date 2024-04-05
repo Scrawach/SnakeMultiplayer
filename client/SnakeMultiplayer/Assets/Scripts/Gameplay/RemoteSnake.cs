@@ -3,6 +3,7 @@ using Network.Extensions;
 using Network.Schemas;
 using Network.Services.Factory;
 using Reflex.Attributes;
+using TMPro;
 using UnityEngine;
 
 namespace Gameplay
@@ -11,12 +12,17 @@ namespace Gameplay
     {
         [SerializeField] private Snake _snake;
         [SerializeField] private UniqueId _uniqueId;
+        [SerializeField] private TextMeshProUGUI _usernameLabel;
 
         private NetworkGameFactory _gameFactory;
         
         [Inject]
         public void Construct(NetworkGameFactory gameFactory) => 
             _gameFactory = gameFactory;
+
+        public void SetUsername(string username) => 
+            _usernameLabel.text = username;
+
 
         public void ChangePosition(Vector2Schema current, Vector2Schema previous) => 
             _snake.LookAt(current.ToVector3());

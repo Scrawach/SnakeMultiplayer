@@ -28,7 +28,7 @@
 
 .unity-button {
     background-color: rgb(115, 85, 186);
-    -unity-font-style: normal;
+    -unity-font-style: bold;
     -unity-text-align: middle-center;
     font-size: 32px;
     color: rgb(255, 255, 255);
@@ -48,7 +48,7 @@
     border-bottom-width: 4px;
     border-left-width: 2px;
     transition-duration: 0.1s;
-    -unity-font-definition: url('project://database/Assets/Fonts/DynaPuff-Bold.ttf?fileID=12800000&guid=abcc4d12efc3df841b87cc4a8bd1480e&type=3#DynaPuff-Bold');
+    -unity-font-definition: url('project://database/Assets/Fonts/DynaPuff-Regular.ttf?fileID=12800000&guid=e7a5668950b74f6459751a7e9ea7ae54&type=3#DynaPuff-Regular');
 }
 
 .unity-button:hover {

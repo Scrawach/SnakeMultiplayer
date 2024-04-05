@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Services
+namespace CameraLogic
 {
     public class CameraFollow : MonoBehaviour
     {
