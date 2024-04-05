@@ -46,10 +46,6 @@ namespace Network.Services.Factory
         {
             var info = _snakes[key];
             _snakes.Remove(key);
-            
-            foreach (var dispose in info.Disposes) 
-                dispose?.Invoke();
-            
             Object.Destroy(info.Snake.gameObject);
         }
         
@@ -74,17 +70,13 @@ namespace Network.Services.Factory
         {
             var data = _staticData.ForSnake();
             var skin = _staticData.ForSnakeSkin(schema.skinId);
-            var snake = CreateSnake(pathToPrefab, schema.position.ToVector3(), skin, data.MovementSpeed);
-
-            var remoteSnake = snake.GetComponent<RemoteSnake>();
-            remoteSnake.SetUsername(schema.username);
-            remoteSnake.GetComponent<UniqueId>().Construct(key);
-            remoteSnake.GetComponent<LeaderboardSnake>().Initialize(schema);
             
-            var positionDispose = schema.OnPositionChange(remoteSnake.ChangePosition, false);
-            var sizeChanges = schema.OnSizeChange(remoteSnake.ChangeSize, false);
-            _snakes.Add(key, schema, snake, positionDispose, sizeChanges);
-            AddSnakeDetail(key, schema.size);
+            var snake = CreateSnake(pathToPrefab, schema.position.ToVector3(), skin, data.MovementSpeed);
+            snake.GetComponent<UniqueId>().Construct(key);
+            _snakes.Add(key, schema, snake);
+            
+            var remoteSnake = snake.GetComponent<RemoteSnake>();
+            remoteSnake.Initialize(schema);
             
             return snake;
         }

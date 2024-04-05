@@ -1,27 +1,34 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Network.Schemas;
 using UnityEngine;
 
 namespace Services.Leaders
 {
     public class LeaderboardService
     {
+        private readonly StaticDataService _staticData;
         private readonly Dictionary<string, LeaderInfo> _leaders;
 
-        public LeaderboardService() => 
+        public LeaderboardService(StaticDataService staticData)
+        {
+            _staticData = staticData;
             _leaders = new Dictionary<string, LeaderInfo>();
+        }
 
         public event Action Updated;
         
-        public void CreateLeader(string playerId, string username, int score, Color color)
+        public void CreateLeader(string playerId, PlayerSchema schema)
         {
+            var skin = _staticData.ForSnakeSkin(schema.skinId);
+            
             _leaders[playerId] = new LeaderInfo()
             {
                 Position = _leaders.Count + 1,
-                Username = username,
-                Score = score,
-                Color = color
+                Username = schema.username,
+                Score = schema.score,
+                Color = skin.color,
             };
             Updated?.Invoke();
         }

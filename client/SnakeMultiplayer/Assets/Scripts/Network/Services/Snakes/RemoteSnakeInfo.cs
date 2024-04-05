@@ -1,5 +1,4 @@
-﻿using System;
-using Gameplay.SnakeLogic;
+﻿using Gameplay.SnakeLogic;
 using Network.Schemas;
 
 namespace Network.Services.Snakes
@@ -8,6 +7,5 @@ namespace Network.Services.Snakes
     {
         public Snake Snake;
         public PlayerSchema Player;
-        public Action[] Disposes;
     }
 }

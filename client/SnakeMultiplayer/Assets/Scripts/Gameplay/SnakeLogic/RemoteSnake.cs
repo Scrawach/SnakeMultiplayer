@@ -1,8 +1,12 @@
-﻿using Gameplay.Common;
+﻿using System;
+using System.Collections.Generic;
+using Extensions;
+using Gameplay.Common;
 using Network.Extensions;
 using Network.Schemas;
 using Network.Services.Factory;
 using Reflex.Attributes;
+using Services.Leaders;
 using TMPro;
 using UnityEngine;
 
@@ -14,14 +18,38 @@ namespace Gameplay.SnakeLogic
         [SerializeField] private UniqueId _uniqueId;
         [SerializeField] private TextMeshProUGUI _usernameLabel;
 
-        private SnakesFactory _snakesFactory;
+        private readonly List<Action> _disposes = new List<Action>();
         
-        [Inject]
-        public void Construct(SnakesFactory snakesFactory) => 
-            _snakesFactory = snakesFactory;
+        private SnakesFactory _snakesFactory;
+        private LeaderboardService _leaderboard;
 
-        public void SetUsername(string username) => 
-            _usernameLabel.text = username;
+        [Inject]
+        public void Construct(SnakesFactory snakesFactory, LeaderboardService leaderboard)
+        {
+            _snakesFactory = snakesFactory;
+            _leaderboard = leaderboard;
+        }
+
+        public void Initialize(PlayerSchema schema)
+        {
+            _leaderboard.CreateLeader(_uniqueId.Value, schema);
+            schema.OnPositionChange(ChangePosition).AddTo(_disposes);
+            schema.OnSizeChange(ChangeSize).AddTo(_disposes);
+            schema.OnUsernameChange(ChangeUsername).AddTo(_disposes);
+            schema.OnScoreChange(ChangeScore).AddTo(_disposes);
+        }
+
+        private void OnDestroy()
+        {
+            _disposes.ForEach(dispose => dispose?.Invoke());
+            _disposes.Clear();
+        }
+
+        private void ChangeScore(ushort current, ushort previous) => 
+            _leaderboard.UpdateLeader(_uniqueId.Value, current);
+
+        private void ChangeUsername(string current, string previous) => 
+            _usernameLabel.text = current;
         
         public void ChangePosition(Vector2Schema current, Vector2Schema previous) => 
             _snake.LookAt(current.ToVector3());

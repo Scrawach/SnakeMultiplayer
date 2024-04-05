@@ -14,8 +14,8 @@ namespace Network.Services.Snakes
 
         public RemoteSnakeInfo this[string key] => _snakes[key];
         
-        public void Add(string key, PlayerSchema player, Snake snake, params Action[] disposes) => 
-            _snakes[key] = new RemoteSnakeInfo() { Snake = snake, Player = player, Disposes = disposes };
+        public void Add(string key, PlayerSchema player, Snake snake) => 
+            _snakes[key] = new RemoteSnakeInfo() { Snake = snake, Player = player };
 
         public bool Remove(string key) => 
             _snakes.Remove(key);
