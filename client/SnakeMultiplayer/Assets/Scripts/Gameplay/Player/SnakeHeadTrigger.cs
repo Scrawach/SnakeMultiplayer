@@ -1,8 +1,9 @@
 ﻿using Gameplay.Animations;
+using Gameplay.Environment;
 using Gameplay.SnakeLogic;
 using UnityEngine;
 
-namespace Gameplay
+namespace Gameplay.Player
 {
     public class SnakeHeadTrigger : MonoBehaviour
     {

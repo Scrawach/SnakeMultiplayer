@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Gameplay
+namespace Gameplay.Common
 {
     public class UniqueId : MonoBehaviour
     {

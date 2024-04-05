@@ -1,4 +1,4 @@
-﻿using Gameplay.SnakeLogic;
+﻿using Gameplay.Common;
 using Network.Extensions;
 using Network.Schemas;
 using Network.Services.Factory;
@@ -6,7 +6,7 @@ using Reflex.Attributes;
 using TMPro;
 using UnityEngine;
 
-namespace Gameplay
+namespace Gameplay.SnakeLogic
 {
     public class RemoteSnake : MonoBehaviour
     {

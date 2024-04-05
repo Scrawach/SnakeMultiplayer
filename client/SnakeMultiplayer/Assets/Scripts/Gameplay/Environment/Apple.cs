@@ -1,11 +1,12 @@
-﻿using Network.Extensions;
+﻿using Gameplay.Common;
+using Network.Extensions;
 using Network.Schemas;
 using Network.Services.Factory;
 using Network.Services.RoomHandlers;
 using Reflex.Attributes;
 using UnityEngine;
 
-namespace Gameplay
+namespace Gameplay.Environment
 {
     public class Apple : MonoBehaviour
     {

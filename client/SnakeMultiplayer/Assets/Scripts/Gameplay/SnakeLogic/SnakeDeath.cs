@@ -1,8 +1,9 @@
-﻿using Network.Services.Factory;
+﻿using Gameplay.Common;
+using Network.Services.Factory;
 using Reflex.Attributes;
 using UnityEngine;
 
-namespace Gameplay
+namespace Gameplay.SnakeLogic
 {
     public class SnakeDeath : MonoBehaviour
     {

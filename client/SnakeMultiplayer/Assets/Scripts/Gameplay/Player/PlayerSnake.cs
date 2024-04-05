@@ -2,7 +2,7 @@
 using Services;
 using UnityEngine;
 
-namespace Gameplay
+namespace Gameplay.Player
 {
     public class PlayerSnake : MonoBehaviour
     {

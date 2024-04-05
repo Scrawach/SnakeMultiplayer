@@ -1,9 +1,8 @@
-﻿using Network.Services;
-using Network.Services.RoomHandlers;
+﻿using Network.Services.RoomHandlers;
 using Reflex.Attributes;
 using UnityEngine;
 
-namespace Gameplay
+namespace Gameplay.Player
 {
     public class PlayerNetworkSync : MonoBehaviour
     {

@@ -1,11 +1,12 @@
 using System;
+using Gameplay.Common;
 using Network.Schemas;
 using Reflex.Attributes;
 using Services;
 using Services.Leaders;
 using UnityEngine;
 
-namespace Gameplay
+namespace Gameplay.SnakeLogic
 {
     public class LeaderboardSnake : MonoBehaviour
     {
