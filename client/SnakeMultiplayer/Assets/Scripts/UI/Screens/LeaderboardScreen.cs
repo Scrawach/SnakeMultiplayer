@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace UI
+namespace UI.Screens
 {
     public class LeaderboardScreen : GameScreen
     {

@@ -1,10 +1,11 @@
 using System;
 using Cysharp.Threading.Tasks;
 using Infrastructure;
+using UI.Extensions;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace UI
+namespace UI.Screens
 {
     public class ConnectionScreen : GameScreen
     {

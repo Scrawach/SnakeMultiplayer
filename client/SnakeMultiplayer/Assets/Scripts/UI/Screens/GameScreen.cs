@@ -1,7 +1,8 @@
+using UI.Extensions;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace UI
+namespace UI.Screens
 {
     public abstract class GameScreen : MonoBehaviour
     {
