@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Services.Leaders
 {
     public class LeaderInfo
@@ -5,5 +7,6 @@ namespace Services.Leaders
         public int Position;
         public string Username;
         public int Score;
+        public Color Color;
     }
 }

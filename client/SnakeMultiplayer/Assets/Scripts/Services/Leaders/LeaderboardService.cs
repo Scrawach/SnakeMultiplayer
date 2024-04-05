@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace Services.Leaders
 {
@@ -13,13 +14,14 @@ namespace Services.Leaders
 
         public event Action Updated;
         
-        public void CreateLeader(string playerId, string username, int score)
+        public void CreateLeader(string playerId, string username, int score, Color color)
         {
             _leaders[playerId] = new LeaderInfo()
             {
                 Position = _leaders.Count + 1,
                 Username = username,
-                Score = score
+                Score = score,
+                Color = color
             };
             Updated?.Invoke();
         }
@@ -41,7 +43,7 @@ namespace Services.Leaders
 
         private IEnumerable<LeaderInfo> SortByPosition(IEnumerable<LeaderInfo> leaders)
         {
-            var orderedLeaders = leaders.OrderBy(leader => leader.Score);
+            var orderedLeaders = leaders.OrderByDescending(leader => leader.Score);
             var position = 1;
             foreach (var orderedLeader in orderedLeaders)
             {

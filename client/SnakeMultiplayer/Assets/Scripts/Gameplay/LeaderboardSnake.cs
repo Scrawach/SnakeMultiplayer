@@ -1,6 +1,7 @@
 using System;
 using Network.Schemas;
 using Reflex.Attributes;
+using Services;
 using Services.Leaders;
 using UnityEngine;
 
@@ -11,15 +12,20 @@ namespace Gameplay
         [SerializeField] private UniqueId _uniqueId;
         
         private LeaderboardService _leaderboard;
+        private StaticDataService _staticData;
         private Action _dispose;
         
         [Inject]
-        public void Construct(LeaderboardService leaderboard) => 
+        public void Construct(LeaderboardService leaderboard, StaticDataService staticData)
+        {
             _leaderboard = leaderboard;
+            _staticData = staticData;
+        }
 
         public void Initialize(PlayerSchema schema)
         {
-            _leaderboard.CreateLeader(_uniqueId.Value, schema.username, schema.score);
+            var skin = _staticData.ForSnakeSkin(schema.skinId);
+            _leaderboard.CreateLeader(_uniqueId.Value, schema.username, schema.score, skin.color);
             _dispose = schema.OnScoreChange(OnScoreUpdated);
         }
 
