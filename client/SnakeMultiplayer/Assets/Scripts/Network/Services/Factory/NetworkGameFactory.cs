@@ -8,6 +8,7 @@ using Network.Services.RoomHandlers;
 using Network.Services.Snakes;
 using Services;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Network.Services.Factory
 {
@@ -16,34 +17,27 @@ namespace Network.Services.Factory
         private const string PlayerSnakePath = "Snake/Player Snake";
         private const string RemotePlayerSnakePath = "Snake/Remote Snake";
         private const string DetailPath = "Snake/Body Detail";
-
-        private const string ApplePath = "Apple/Apple";
         
         private readonly INetworkStatusProvider _networkStatus;
+        private readonly RemoteSnakesProvider _remoteSnakes;
         private readonly Assets _assets;
         private readonly CameraProvider _camera;
-        private readonly RemoteSnakesProvider _remoteSnakes;
         private readonly StaticDataService _staticData;
         private readonly NetworkTransmitter _transmitter;
         private readonly VfxFactory _vfxFactory;
 
-        public NetworkGameFactory(INetworkStatusProvider networkStatus, Assets assets, CameraProvider camera,
-            RemoteSnakesProvider remoteSnakes, StaticDataService staticData, NetworkTransmitter transmitter,
+        public NetworkGameFactory(INetworkStatusProvider networkStatus, Assets assets, CameraProvider camera, 
+            StaticDataService staticData, NetworkTransmitter transmitter, RemoteSnakesProvider remoteSnakes,
             VfxFactory vfxFactory)
         {
             _networkStatus = networkStatus;
             _assets = assets;
             _camera = camera;
-            _remoteSnakes = remoteSnakes;
             _staticData = staticData;
             _transmitter = transmitter;
+            _remoteSnakes = remoteSnakes;
             _vfxFactory = vfxFactory;
         }
-
-        public Snake CreateSnake(string key, PlayerSchema player) => 
-            _networkStatus.IsPlayer(key) 
-                ? CreatePlayer(key, player) 
-                : CreateRemotePlayer(key, player);
 
         public void RemoveSnake(string key)
         {
@@ -64,41 +58,53 @@ namespace Network.Services.Factory
             _transmitter.SendDeathSnakeDetailPositions(key, positions);
             Object.Destroy(info.Snake.gameObject);
         }
+        
+        public Snake CreateSnake(string key, PlayerSchema player) => 
+            _networkStatus.IsPlayer(key) 
+                ? CreatePlayerSnake(key, player) 
+                : CreateRemoteSnake(key, player, RemotePlayerSnakePath);
 
-        private Snake CreatePlayer(string key, PlayerSchema player)
+        private Snake CreatePlayerSnake(string key, PlayerSchema schema)
         {
             var data = _staticData.ForSnake();
-            var snake = CreateRemoteSnake(key, PlayerSnakePath, player, data.MovementSpeed);
-            snake.GetComponentInChildren<PlayerAim>().Construct(data.MovementSpeed, data.RotationSpeed);
-            _camera.Follow(snake.Head.transform);
-            return snake;
+            var remoteSnake = CreateRemoteSnake(key, schema, PlayerSnakePath);
+            remoteSnake.GetComponentInChildren<PlayerAim>().Construct(data.MovementSpeed, data.RotationSpeed);
+            _camera.Follow(remoteSnake.Head.transform);
+            return remoteSnake;
         }
-
-        private Snake CreateRemotePlayer(string key, PlayerSchema player)
+        
+        private Snake CreateRemoteSnake(string key, PlayerSchema schema, string pathToPrefab)
         {
             var data = _staticData.ForSnake();
-            return CreateRemoteSnake(key, RemotePlayerSnakePath, player, data.MovementSpeed);
-        }
+            var skin = _staticData.ForSnakeSkin(schema.skinId);
+            var snake = CreateSnake(pathToPrefab, schema.position.ToVector3(), skin, data.MovementSpeed);
+            AddSnakeDetail(key, schema.size);
 
-        private Snake CreateRemoteSnake(string key, string pathToPrefab, PlayerSchema player, float movementSpeed)
-        {
-            var skin = _staticData.ForSnakeSkin(player.skinId);
-            var snake = CreateSnake(pathToPrefab, player.position.ToVector3(), player.size, skin);
             var remoteSnake = snake.GetComponent<RemoteSnake>();
-            remoteSnake.SetUsername(player.username);
-            snake.GetComponent<UniqueId>().Construct(key);
-            snake.GetComponent<LeaderboardSnake>().Initialize(player);
-            var positionDispose = player.OnPositionChange(remoteSnake.ChangePosition);
-            var sizeChanges = player.OnSizeChange(remoteSnake.ChangeSize);
-            _remoteSnakes.Add(key, player,snake, positionDispose, sizeChanges);
-            snake.Head.Construct(movementSpeed);
+            remoteSnake.SetUsername(schema.username);
+            remoteSnake.GetComponent<UniqueId>().Construct(key);
+            remoteSnake.GetComponent<LeaderboardSnake>().Initialize(schema);
+            
+            var positionDispose = schema.OnPositionChange(remoteSnake.ChangePosition);
+            var sizeChanges = schema.OnSizeChange(remoteSnake.ChangeSize);
+            _remoteSnakes.Add(key, schema, snake, positionDispose, sizeChanges);
+
             return snake;
         }
-
+        
+        private Snake CreateSnake(string pathToPrefab, Vector3 position, Material skin, float movementSpeed)
+        {
+            var snake = _assets.Instantiate<Snake>(pathToPrefab, position, Quaternion.identity, null);
+            snake.Head.Construct(movementSpeed);
+            snake.GetComponentInChildren<SnakeSkin>().ChangeTo(skin);
+            return snake;
+        }
+        
         public void AddSnakeDetail(string snakeId, int count)
         {
             var snakeInfo = _remoteSnakes[snakeId];
             var skin = _staticData.ForSnakeSkin(snakeInfo.Player.skinId);
+            
             for (var i = 0; i < count; i++)
                 snakeInfo.Snake.AddDetail(CreateSnakeDetail(snakeInfo.Snake.Head.transform, snakeInfo.Snake.transform, skin));
         }
@@ -106,39 +112,17 @@ namespace Network.Services.Factory
         public void RemoveSnakeDetails(string snakeId, int count)
         {
             var snakeInfo = _remoteSnakes[snakeId];
+            
             for (var i = 0; i < count; i++) 
                 Object.Destroy(snakeInfo.Snake.RemoveDetail());
         }
 
-        private Snake CreateSnake(string path, Vector3 position, int countOfDetails, Material skin)
-        {
-            var instance = _assets.Instantiate<Snake>(path, position, Quaternion.identity, null);
-            instance.GetComponentInChildren<SnakeSkin>().ChangeTo(skin);
-            
-            for (var i = 0; i < countOfDetails; i++) 
-                instance.AddDetail(CreateSnakeDetail(instance.Head.transform, instance.transform, skin));
-
-            return instance;
-        }
-
         private GameObject CreateSnakeDetail(Transform head, Transform parent, Material skin)
         {
-            var instance = _assets.Instantiate<SnakeSkin>(DetailPath, head.position - head.forward, head.rotation, parent);
+            var spawnPoint = head.position - head.forward;
+            var instance = _assets.Instantiate<SnakeSkin>(DetailPath, spawnPoint, head.rotation, parent);
             instance.ChangeTo(skin);
             return instance.gameObject;
-        }
-
-        public Apple CreateApple(string key, AppleSchema schema)
-        {
-            var apple = _assets.Instantiate<Apple>(ApplePath, schema.position.ToVector3(), Quaternion.identity, null);
-            apple.GetComponent<UniqueId>().Construct(key);
-            schema.OnPositionChange(apple.ChangePosition);
-            return apple;
-        }
-
-        public void RemoveApple(string key)
-        {
-            
         }
     }
 }

@@ -21,6 +21,7 @@ namespace Infrastructure
 
             builder.AddSingleton(typeof(VfxFactory));
             builder.AddSingleton(typeof(LeaderboardService));
+            builder.AddSingleton(typeof(AppleFactory));
             
             builder.AddSingleton(typeof(RemoteSnakesProvider));
             builder.AddSingleton(typeof(NetworkClient));

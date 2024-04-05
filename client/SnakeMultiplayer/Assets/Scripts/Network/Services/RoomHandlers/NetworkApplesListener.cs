@@ -8,12 +8,12 @@ namespace Network.Services.RoomHandlers
 {
     public class NetworkApplesListener : IDisposable
     {
-        private readonly NetworkGameFactory _networkGameFactory;
+        private readonly AppleFactory _appleFactory;
         private readonly List<Action> _disposes;
 
-        public NetworkApplesListener(NetworkGameFactory networkGameFactory)
+        public NetworkApplesListener(AppleFactory appleFactory)
         {
-            _networkGameFactory = networkGameFactory;
+            _appleFactory = appleFactory;
             _disposes = new List<Action>();
         }
 
@@ -30,9 +30,9 @@ namespace Network.Services.RoomHandlers
         }
 
         private void OnAppleAdded(string key, AppleSchema schema) => 
-            _networkGameFactory.CreateApple(key, schema);
+            _appleFactory.CreateApple(key, schema);
 
         private void OnAppleRemoved(string key, AppleSchema schema) => 
-            _networkGameFactory.RemoveApple(key);
+            _appleFactory.RemoveApple(key);
     }
 }
