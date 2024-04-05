@@ -41,6 +41,7 @@ namespace Gameplay.SnakeLogic
 
         private void OnDestroy()
         {
+            _leaderboard.RemoveLeader(_uniqueId.Value);
             _disposes.ForEach(dispose => dispose?.Invoke());
             _disposes.Clear();
         }
