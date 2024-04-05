@@ -73,17 +73,17 @@ namespace Network.Services.Factory
             var data = _staticData.ForSnake();
             var skin = _staticData.ForSnakeSkin(schema.skinId);
             var snake = CreateSnake(pathToPrefab, schema.position.ToVector3(), skin, data.MovementSpeed);
-            AddSnakeDetail(key, schema.size);
 
             var remoteSnake = snake.GetComponent<RemoteSnake>();
             remoteSnake.SetUsername(schema.username);
             remoteSnake.GetComponent<UniqueId>().Construct(key);
             remoteSnake.GetComponent<LeaderboardSnake>().Initialize(schema);
             
-            var positionDispose = schema.OnPositionChange(remoteSnake.ChangePosition);
-            var sizeChanges = schema.OnSizeChange(remoteSnake.ChangeSize);
+            var positionDispose = schema.OnPositionChange(remoteSnake.ChangePosition, false);
+            var sizeChanges = schema.OnSizeChange(remoteSnake.ChangeSize, false);
             _snakes.Add(key, schema, snake, positionDispose, sizeChanges);
-
+            AddSnakeDetail(key, schema.size);
+            
             return snake;
         }
         
