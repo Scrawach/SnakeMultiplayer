@@ -9,6 +9,8 @@ namespace UI
     public class ConnectionScreen : GameScreen
     {
         [SerializeField] private GameBootstrapper _gameBootstrapper;
+        [SerializeField] private string _hasNotConnectionMessage = "NO CONNECTION!";
+        [SerializeField] private string _emptyUsernameMessage = "EMPTY USERNAME!";
         
         private TextField _usernameField;
         private Button _connectButton;
@@ -61,7 +63,7 @@ namespace UI
             
             if (string.IsNullOrWhiteSpace(_usernameField.value))
             {
-                _errorLabel.text = "EMPTY USERNAME!";
+                _errorLabel.text = _emptyUsernameMessage;
                 _errorLabel.Show();
                 return;
             }
@@ -76,7 +78,7 @@ namespace UI
             }
             else
             {
-                _errorLabel.text = "NO CONNECTION!";
+                _errorLabel.text = _hasNotConnectionMessage;
                 _errorLabel.Show();
             }
             
