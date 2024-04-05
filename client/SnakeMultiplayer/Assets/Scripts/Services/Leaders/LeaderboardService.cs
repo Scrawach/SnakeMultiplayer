@@ -36,9 +36,19 @@ namespace Services.Leaders
             Updated?.Invoke();
         }
 
-        public IEnumerable<LeaderInfo> GetLeadersSortedByPosition()
+        public IEnumerable<LeaderInfo> GetLeadersSortedByPosition() => 
+            SortByPosition(_leaders.Values);
+
+        private IEnumerable<LeaderInfo> SortByPosition(IEnumerable<LeaderInfo> leaders)
         {
-            return _leaders.Values;
+            var orderedLeaders = leaders.OrderBy(leader => leader.Score);
+            var position = 1;
+            foreach (var orderedLeader in orderedLeaders)
+            {
+                orderedLeader.Position = position;
+                position++;
+                yield return orderedLeader;
+            }
         }
     }
 }
