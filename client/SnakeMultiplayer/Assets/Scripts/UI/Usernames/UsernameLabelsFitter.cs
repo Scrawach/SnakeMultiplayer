@@ -6,9 +6,9 @@ using Services;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace UI
+namespace UI.Usernames
 {
-    public class WorldSpaceUsernameLabels : MonoBehaviour
+    public class UsernameLabelsFitter : MonoBehaviour
     {
         [SerializeField] private UIDocument _ui;
         [SerializeField] private VisualTreeAsset _usernameLabelTree;
