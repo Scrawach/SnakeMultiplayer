@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+    server:
+        build: ./SnakeMultiplayerServer
+        container_name: SnakeMultiplayerServer
+        ports:
+            - '2567:2567'
