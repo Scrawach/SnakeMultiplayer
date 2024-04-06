@@ -1446,7 +1446,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1334413596
 Transform:
   m_ObjectHideFlags: 0
@@ -1616,6 +1616,7 @@ GameObject:
   - component: {fileID: 1612639791}
   - component: {fileID: 1612639789}
   - component: {fileID: 1612639790}
+  - component: {fileID: 1612639792}
   m_Layer: 0
   m_Name: UI Root
   m_TagString: Untagged
@@ -1701,6 +1702,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _connectionScreen: {fileID: 1612639789}
   _leaderboardScreen: {fileID: 1612639790}
+--- !u!114 &1612639792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612639786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 612be67a4052493ca4751dd6fdd11710, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ui: {fileID: 1612639787}
+  _usernameLabelTree: {fileID: 9197481963319205126, guid: 5601868607c93d64198999ba6db4b589, type: 3}
+  _showSelfUsername: 0
 --- !u!1 &1622346419
 GameObject:
   m_ObjectHideFlags: 0

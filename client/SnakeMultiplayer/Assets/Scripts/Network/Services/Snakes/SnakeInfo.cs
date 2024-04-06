@@ -3,7 +3,7 @@ using Network.Schemas;
 
 namespace Network.Services.Snakes
 {
-    public class RemoteSnakeInfo
+    public class SnakeInfo
     {
         public Snake Snake;
         public PlayerSchema Player;

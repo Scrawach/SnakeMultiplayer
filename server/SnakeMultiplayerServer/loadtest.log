@@ -1,0 +1,10 @@
+[06.04.2024, 14:06:12] @colyseus/loadtest
+endpoint: ws://localhost:2567
+roomName: GameRoom
+numClients: 50
+logLevel: all
+output: E:\Projects\Unity\SnakeMultiplayer\server\SnakeMultiplayerServer\loadtest.log
+[06.04.2024, 14:06:27] Finished. Summary:
+    Successful connections: 50
+    Failed connections: 0
+    Total errors: 0
