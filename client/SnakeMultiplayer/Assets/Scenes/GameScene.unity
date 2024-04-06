@@ -1716,7 +1716,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ui: {fileID: 1612639787}
   _usernameLabelTree: {fileID: 9197481963319205126, guid: 5601868607c93d64198999ba6db4b589, type: 3}
-  _showSelfUsername: 0
+  _showSelfUsername: 1
 --- !u!1 &1622346419
 GameObject:
   m_ObjectHideFlags: 0

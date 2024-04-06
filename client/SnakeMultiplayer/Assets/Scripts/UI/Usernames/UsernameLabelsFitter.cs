@@ -38,46 +38,61 @@ namespace UI.Usernames
             _ui.rootVisualElement.Add(_root);
         }
 
-        private void OnEnable() => 
-            _snakes.Updated += OnSnakedUpdated;
+        private void OnEnable()
+        {
+            _snakes.Added += OnSnakeAdded;
+            _snakes.Removed += OnSnakeRemoved;
+        }
 
-        private void OnDisable() => 
-            _snakes.Updated -= OnSnakedUpdated;
+        private void OnDisable()
+        {
+            _snakes.Added -= OnSnakeAdded;
+            _snakes.Removed -= OnSnakeRemoved;
+        }
 
         private void Update() => 
             MoveUILabels();
+        
+        private void OnSnakeAdded(string snakeId)
+        {
+            if (_status.IsPlayer(snakeId) && !_showSelfUsername)
+                return;
+
+            var snakeInfo = _snakes[snakeId];
+            var label = CreateLabel(snakeInfo.Player.username, snakeInfo.Player.skinId);
+            _labels[snakeId] = label;
+            _root.Add(label);
+        }
+
+        private void OnSnakeRemoved(string snakeId)
+        {
+            if (_status.IsPlayer(snakeId) && !_showSelfUsername)
+                return;
+
+            var label = _labels[snakeId];
+            _labels.Remove(snakeId);
+            _root.Remove(label);
+        }
 
         private void MoveUILabels()
         {
-            foreach (var (snakeId, snakeInfo) in _snakes.All())
+            foreach (var (snakeId, label) in _labels)
             {
-                if (!_labels.TryGetValue(snakeId, out var label))
-                    continue;
-                
-                var headTransform = snakeInfo.Snake.Head.transform;
-                var labelPosition = headTransform.position - headTransform.forward;
-                var screenPosition = _cameraProvider.Current.WorldToScreenPoint(labelPosition);
-                label.SetScreenPosition(screenPosition);
+                var info = _snakes[snakeId];
+                var headTransform = info.Snake.Head.transform;
+                var labelWorldPosition = headTransform.position - headTransform.forward;
+                var labelScreenPosition = _cameraProvider.Current.WorldToScreenPoint(labelWorldPosition);
+                label.SetScreenPosition(labelScreenPosition);
             }
         }
 
-        private void OnSnakedUpdated()
+        private UsernameLabel CreateLabel(string username, int skinId)
         {
-            _root.Clear();
-            _labels.Clear();
-            
-            foreach (var (snakeId, snakeInfo) in _snakes.All())
-            {
-                if (!_showSelfUsername && _status.IsPlayer(snakeId))
-                    continue;
-                
-                var skin = _staticData.ForSnakeSkin(snakeInfo.Player.skinId);
-                var label = new UsernameLabel(_usernameLabelTree);
-                label.SetUsername(snakeInfo.Player.username);
-                label.SetLabelColor(skin.color);
-                _labels[snakeId] = label;
-                _root.Add(label);
-            }
+            var skin = _staticData.ForSnakeSkin(skinId);
+            var label = new UsernameLabel(_usernameLabelTree);
+            label.SetUsername(username);
+            label.SetLabelColor(skin.color);
+            return label;
         }
     }
 }
