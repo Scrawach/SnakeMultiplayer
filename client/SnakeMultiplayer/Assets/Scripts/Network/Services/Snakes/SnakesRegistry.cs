@@ -14,7 +14,9 @@ namespace Network.Services.Snakes
             _snakes = new Dictionary<string, SnakeInfo>();
 
         public SnakeInfo this[string key] => _snakes[key];
-        
+
+        public event Action<string> Added;
+        public event Action<string> Removed;
         public event Action Updated;
 
         public IEnumerable<(string, SnakeInfo)> All() => 
@@ -24,15 +26,19 @@ namespace Network.Services.Snakes
         {
             _snakes[key] = new SnakeInfo() { Snake = snake, Player = player };
             Updated?.Invoke();
+            Added?.Invoke(key);
         }
 
         public bool Remove(string key)
         {
             var result = _snakes.Remove(key);
-            
-            if (result)
-                Updated?.Invoke();
 
+            if (result)
+            {
+                Updated?.Invoke();
+                Removed?.Invoke(key);
+            }
+            
             return result;
         }
 
