@@ -19,8 +19,5 @@ namespace UI.Screens
 
         public virtual void Hide() => 
             Screen.Hide();
-
-        public static void ShowVisualElement(VisualElement visualElement, bool state) => 
-            visualElement.style.display = (state) ? DisplayStyle.Flex : DisplayStyle.None;
     }
 }
