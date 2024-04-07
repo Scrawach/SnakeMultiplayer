@@ -1,6 +1,7 @@
 using System;
 using Cysharp.Threading.Tasks;
 using Infrastructure;
+using Reflex.Attributes;
 using UI.Extensions;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -9,17 +10,22 @@ namespace UI.Screens
 {
     public class ConnectionScreen : GameScreen
     {
-        [SerializeField] private GameBootstrapper _gameBootstrapper;
         [SerializeField] private string _hasNotConnectionMessage = "NO CONNECTION!";
         [SerializeField] private string _emptyUsernameMessage = "EMPTY USERNAME!";
+
+        private Game _game;
         
         private TextField _usernameField;
         private Button _connectButton;
         private Button _quitButton;
         private Label _errorLabel;
 
+        [Inject]
+        public void Construct(Game game) => 
+            _game = game;
+
         public event Action Connected;
-        
+
         protected override void Awake()
         {
             base.Awake();
@@ -70,12 +76,11 @@ namespace UI.Screens
             }
 
             SetEnabledButtons(false);
-            var result = await _gameBootstrapper.Connect(_usernameField.value);
+            var result = await _game.Connect(_usernameField.value);
 
             if (result.IsSuccess)
             {
                 Connected?.Invoke();
-                Hide();
             }
             else
             {

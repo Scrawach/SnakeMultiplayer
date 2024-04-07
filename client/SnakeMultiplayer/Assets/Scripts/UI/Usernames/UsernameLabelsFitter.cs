@@ -38,13 +38,13 @@ namespace UI.Usernames
             _ui.rootVisualElement.Add(_root);
         }
 
-        private void OnEnable()
+        private void Start()
         {
             _snakes.Added += OnSnakeAdded;
             _snakes.Removed += OnSnakeRemoved;
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             _snakes.Added -= OnSnakeAdded;
             _snakes.Removed -= OnSnakeRemoved;

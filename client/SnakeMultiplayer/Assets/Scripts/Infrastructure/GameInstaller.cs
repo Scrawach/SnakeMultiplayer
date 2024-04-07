@@ -5,6 +5,7 @@ using Network.Services.Snakes;
 using Reflex.Core;
 using Services;
 using Services.Leaders;
+using UI.Factory;
 using UnityEngine;
 
 namespace Infrastructure
@@ -15,10 +16,12 @@ namespace Infrastructure
         {
             builder.AddSingleton(typeof(Injector));
             builder.AddSingleton(typeof(CameraProvider));
+            builder.AddSingleton(typeof(Game));
             builder.AddSingleton(typeof(InputService));
             builder.AddSingleton(typeof(Assets));
             builder.AddSingleton(typeof(StaticDataService));
 
+            builder.AddSingleton(typeof(UIFactory));
             builder.AddSingleton(typeof(LeaderboardService));
             builder.AddSingleton(typeof(SnakesFactory));
             builder.AddSingleton(typeof(AppleFactory));

@@ -1,4 +1,3 @@
-using System;
 using UI.Screens;
 using UnityEngine;
 
@@ -16,13 +15,14 @@ namespace UI
         }
 
         private void OnEnable() => 
-            _connectionScreen.Connected += OnStartConnection;
+            _connectionScreen.Connected += OnConnected;
 
         private void OnDisable() => 
-            _connectionScreen.Connected -= OnStartConnection;
+            _connectionScreen.Connected -= OnConnected;
 
-        private void OnStartConnection()
+        private void OnConnected()
         {
+            _connectionScreen.Hide();
             _leaderboardScreen.Show();
         }
     }

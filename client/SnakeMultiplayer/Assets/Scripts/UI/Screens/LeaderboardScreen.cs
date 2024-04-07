@@ -25,10 +25,10 @@ namespace UI.Screens
             _leaderboardContainer = Screen.Q<VisualElement>("leaderboard-content");
         }
 
-        private void OnEnable() => 
+        private void Start() => 
             _leaderboardService.Updated += OnLeaderboardUpdated;
 
-        private void OnDisable() => 
+        private void OnDestroy() => 
             _leaderboardService.Updated -= OnLeaderboardUpdated;
 
         private void OnLeaderboardUpdated()

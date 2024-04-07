@@ -1,30 +1,20 @@
-﻿using Cysharp.Threading.Tasks;
-using Network.Services;
-using Reflex.Attributes;
-using Services;
+﻿using Reflex.Attributes;
 using UnityEngine;
 
 namespace Infrastructure
 {
     public class GameBootstrapper : MonoBehaviour
     {
-        private NetworkClient _client;
-        private StaticDataService _staticData;
+        private Game _game;
         
         [Inject]
-        public void Construct(NetworkClient client, StaticDataService staticData)
-        {
-            _client = client;
-            _staticData = staticData;
-        }
+        public void Construct(Game game) => 
+            _game = game;
 
-        private async void Start() => 
-            _staticData.Load();
+        private void Start() => 
+            _game.Start();
 
-        public async UniTask<ConnectionResult> Connect(string username) => 
-            await _client.Connect(username);
-        
         private async void OnDestroy() => 
-            await _client.Disconnect();
+            await _game.Disconnect();
     }
 }
