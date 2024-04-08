@@ -8,7 +8,6 @@ namespace UI.Screens
 {
     public class ConnectionScreen : GameScreen
     {
-        [SerializeField] private string _hasNotConnectionMessage = "NO CONNECTION!";
         [SerializeField] private string _emptyUsernameMessage = "EMPTY USERNAME!";
 
         private Game _game;
@@ -60,7 +59,7 @@ namespace UI.Screens
             if (result.IsSuccess)
                 Connected?.Invoke();
             else
-                _connectionPanel.ShowError(_hasNotConnectionMessage);
+                _connectionPanel.ShowError(result.Message);
 
             _connectionPanel.UnblockButtons();
         }

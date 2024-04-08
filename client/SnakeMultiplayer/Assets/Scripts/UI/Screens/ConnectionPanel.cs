@@ -56,10 +56,10 @@ namespace UI.Screens
         }
         
         public void BlockButtons() => 
-            SetEnabledButtons(true);
+            SetEnabledButtons(false);
 
         public void UnblockButtons() => 
-            SetEnabledButtons(false);
+            SetEnabledButtons(true);
 
         private EventCallback<KeyDownEvent> OnUsernameSubmitted() =>
             evt =>
@@ -72,6 +72,7 @@ namespace UI.Screens
         
         private void SetEnabledButtons(bool isEnable)
         {
+            Debug.Log($"set enable {isEnable}");
             _usernameField.SetEnabled(isEnable);
             _connectButton.SetEnabled(isEnable);
             _quitButton.SetEnabled(isEnable);
