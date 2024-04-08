@@ -38,7 +38,7 @@ That's all. Now you have a container running on your machine with a server for t
 > [!WARNING]
 > Required [NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
 
-1. Go to server folder with sorce code:
+1. Go to server folder with source code:
 
 ```
 cd server/SnakeMultiplayerServer
