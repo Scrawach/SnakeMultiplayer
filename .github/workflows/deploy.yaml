@@ -1,19 +1,26 @@
 name: Deploy
 
 on:
+  workflow_dispatch:
   push:
     branches:
-      - master
-
+      - main
+      
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      # Setup key
-      - run: set -eu
-      - run: mkdir "$HOME/.ssh"
-      - run: echo "${{ secrets.key }}" > "$HOME/.ssh/key"
-      - run: chmod 600 "$HOME/.ssh/key"
-      # Deploy
-      - run: cd src && rsync -azvhPL -e "ssh -p 22 -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . root@${{ secrets.server_url }}:/root/${{ git.repository }}/src
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+      
+      - name: Setup SSH keys
+        run: |
+            set -eu
+            mkdir "$HOME/.ssh"
+            echo "${{ secrets.key }}" > "$HOME/.ssh/key"
+            chmod 600 "$HOME/.ssh/key"
+      
+      - name: Copy server source codes
+        run: |
+            cd ${{ vars.PATH_TO_SERVER_SOURCE_CODE }} 
+            rsync -azvhPL -e "ssh -p 22 -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . root@${{ secrets.server_url }}:${{ vars.PATH_TO_TARGET_SERVER_FOLDER }}
