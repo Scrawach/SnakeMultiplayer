@@ -27,6 +27,7 @@ jobs:
 
       - name: Build Docker Image
         uses: appleboy/ssh-action@v1.0.3
+        continue-on-error: true
         with:
           host: ${{ secrets.server_url }}
           username: root
