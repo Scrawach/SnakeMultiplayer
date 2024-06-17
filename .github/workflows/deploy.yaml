@@ -33,6 +33,6 @@ jobs:
           key: ${{ secrets.key }}
           port: 22
           script: |
-            pwd
+            docker rmi $(docker images | grep 'snake-multiplayer') --force
             docker build -t snake-multiplayer ${{ vars.PATH_TO_TARGET_SERVER_FOLDER }}
-            docker run snake-multiplayer
+            docker run snake-multiplayer -d
