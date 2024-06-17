@@ -1,3 +1,5 @@
+![Deploy](https://github.com/Scrawach/SnakeMultiplayer/actions/workflows/deploy.yaml/badge.svg)
+
 ## Snake Multiplayer
 
 A multiplayer snake-inspired arcade game on Unity.
