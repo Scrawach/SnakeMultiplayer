@@ -28,8 +28,6 @@ jobs:
       - name: Build Docker Image
         run: |
             ssh root@${{ secrets.server_url }} -i $HOME/.ssh/key
-            cd ${{ vars.PATH_TO_TARGET_SERVER_FOLDER }}
-            cd ..
             docker rmi $(docker images | grep 'snake-multiplayer')
-            docker build -t snake-multiplayer .
+            docker build -t snake-multiplayer ${{ vars.PATH_TO_TARGET_SERVER_FOLDER }}
             docker run snake-multiplayer
