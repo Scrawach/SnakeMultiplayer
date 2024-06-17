@@ -34,7 +34,7 @@ jobs:
           key: ${{ secrets.key }}
           port: 22
           script: |
-            docker rm $(docker stop $(docker ps -a -q --filter ancestor=<image-name> --format="{{.ID}}"))
+            docker rm $(docker stop $(docker ps -a -q --filter ancestor=snake-multiplayer --format="{{.ID}}"))
             docker rmi $(docker images | grep 'snake-multiplayer') --force
             docker build -t snake-multiplayer ${{ vars.PATH_TO_TARGET_SERVER_FOLDER }}
             docker run -d -p 2567:2567 snake-multiplayer
