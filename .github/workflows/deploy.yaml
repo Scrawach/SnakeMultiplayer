@@ -26,8 +26,13 @@ jobs:
             rsync -azvhPL -e "ssh -p 22 -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . root@${{ secrets.server_url }}:${{ vars.PATH_TO_TARGET_SERVER_FOLDER }}
 
       - name: Build Docker Image
-        run: |
-            ssh root@${{ secrets.server_url }} -i $HOME/.ssh/key
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.server_url }}
+          username: root
+          key: ${{ secrets.key }}
+          port: 22
+          script: |
             pwd
             docker build -t snake-multiplayer ${{ vars.PATH_TO_TARGET_SERVER_FOLDER }}
             docker run snake-multiplayer
